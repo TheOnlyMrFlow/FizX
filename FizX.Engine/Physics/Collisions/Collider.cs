@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 namespace FizX.Engine.Physics.Collisions
 {
@@ -6,6 +7,8 @@ namespace FizX.Engine.Physics.Collisions
     {
         public Vector2 Offset { get; set; } = Vector2.Zero;
         public GameObject GameObject { get; set; }
+
+        public float Mass { get; set; } = float.PositiveInfinity;
 
         private int _layer;
 

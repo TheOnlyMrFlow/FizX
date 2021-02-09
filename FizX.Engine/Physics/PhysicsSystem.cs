@@ -11,7 +11,7 @@ namespace FizX.Engine.Physics
         public static void Run(World world, float elapsed)
         {
             ApplyVelocity(world, elapsed);
-            CollisionSystem.Run(world);
+            CollisionSystem.Run(world, elapsed);
         }
 
         private static void ApplyVelocity(World world, float elapsed)
