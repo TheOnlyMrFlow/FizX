@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
-using FizX.Engine.Debug;
 using FizX.Engine.Input;
 using FizX.Engine.Physics;
 using FizX.Graphics;
@@ -10,19 +9,19 @@ namespace FizX.Engine
 {
     public class Engine
     {
-        private readonly ILogger _logger;
+        //private readonly ILogger _logger;
         private readonly RenderingSystem _renderingSystem;
         private readonly InputSystem _inputSystem;
 
         public World World { get; private set; } = new World();
 
         public int MaxFPS { get; set; } = 60; 
-        public Engine(ILogger logger)
+        public Engine()
         {
             _renderingSystem = new RenderingSystem(800, 400, "Engine");
             _inputSystem = new InputSystem(_renderingSystem.Window);
-            _logger = logger;
-            Debug.Debug.SetLogger(logger);
+            //_logger = logger;
+            //Debug.Debug.SetLogger(logger);
         }
 
         public void Run()

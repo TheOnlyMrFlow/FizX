@@ -1,6 +1,5 @@
 ﻿using System;
 using FizX.Engine;
-using FizX.Engine.Debug;
 using FizX.Engine.Input;
 using FizX.Engine.Physics.Collisions;
 using SFML.System;

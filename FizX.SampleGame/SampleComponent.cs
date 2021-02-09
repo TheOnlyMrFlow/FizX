@@ -1,6 +1,5 @@
 ﻿using System;
 using FizX.Engine;
-using FizX.Engine.Debug;
 using FizX.Engine.Input;
 using FizX.Engine.Physics.Collisions;
 using SFML.System;
@@ -13,7 +12,6 @@ namespace FizX.SampleGame
         private float velX = 0f, velY = 0f;
         public override void OnStart()
         {
-            Debug.LogInformation("on start");
         }
 
         public override void OnUpdate()

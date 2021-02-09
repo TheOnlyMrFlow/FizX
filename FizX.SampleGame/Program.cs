@@ -10,7 +10,7 @@ namespace GettingStarted
     {
         public static void Main()
         {
-            var game = new Engine(null);
+            var game = new Engine();
 
             var player = new GameObject
             {

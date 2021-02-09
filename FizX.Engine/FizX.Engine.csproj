@@ -12,6 +12,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Systems\**" />
+    <EmbeddedResource Remove="Systems\**" />
+    <None Remove="Systems\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Resources\Fonts\CALIBRI.TTF">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -19,10 +25,6 @@
 
   <ItemGroup>
     <PackageReference Include="SFML.Net" Version="2.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Systems\" />
   </ItemGroup>
 
 </Project>
