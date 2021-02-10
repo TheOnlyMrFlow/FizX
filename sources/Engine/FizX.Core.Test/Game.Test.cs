@@ -23,6 +23,8 @@ namespace FizX.Core.Test
 
         private readonly Mock<IGameBoundaries> _gameBoundariesMock;
 
+        private readonly Mock<IWorld> _worldMock;
+
         private Game _game;
 
         public GameTest()
@@ -33,7 +35,8 @@ namespace FizX.Core.Test
             _inputManagerMock = new Mock<IInputManager>();
             _worldLoaderMock = new Mock<IWorldLoader>();
 
-            _worldLoaderMock.Setup(wl => wl.LoadWorld()).Returns(new World());
+            _worldMock = new Mock<IWorld>();
+            _worldLoaderMock.Setup(wl => wl.LoadWorld()).Returns(_worldMock.Object);
 
             _gameBoundariesMock = new Mock<IGameBoundaries>();
             _gameBoundariesMock.Setup(gb => gb.Renderer).Returns(_rendererMock.Object);
@@ -74,7 +77,7 @@ namespace FizX.Core.Test
         }
 
         [Fact]
-        public void It_ShouldCallPhysicsSystem_AtEveryTick()
+        public void It_ShouldRunPhysicsSystem_AtEveryTick()
         {
             _game.Tick();
             _physicsSystemMock.Verify(p => p.Tick(), Times.Once);
@@ -82,6 +85,17 @@ namespace FizX.Core.Test
             _physicsSystemMock.Verify(p => p.Tick(), Times.Exactly(2));
             _game.Tick();
             _physicsSystemMock.Verify(p => p.Tick(), Times.Exactly(3));
+        }
+
+        [Fact]
+        public void It_ShouldUpdateWorld_AtEveryTick()
+        {
+            _game.Tick();
+            _worldMock.Verify(w => w.Update(), Times.Once);
+            _game.Tick();
+            _worldMock.Verify(w => w.Update(), Times.Exactly(2));
+            _game.Tick();
+            _worldMock.Verify(w => w.Update(), Times.Exactly(3));
         }
     }
 }
