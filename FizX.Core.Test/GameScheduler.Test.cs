@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace FizX.Core.Test
 {
-    public class GameTest
+    public class GameSchedulerTest
     {
         private readonly Mock<IRenderer> _rendererMock;
         private readonly Mock<IPhysicsSimulator> _physicsSimulatorMock;
@@ -24,8 +24,9 @@ namespace FizX.Core.Test
         private readonly Mock<IGameBoundaries> _gameBoundariesMock;
 
         private Game _game;
+        private GameScheduler _gameScheduler;
 
-        public GameTest()
+        public GameSchedulerTest()
         {
             _rendererMock = new Mock<IRenderer>();
             _physicsSimulatorMock = new Mock<IPhysicsSimulator>();
@@ -42,48 +43,40 @@ namespace FizX.Core.Test
 
 
             _game = new Game(_gameBoundariesMock.Object);
-        }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(1)]
-        [InlineData(10)]
-        public void ElapsedFrames_ShouldEqualX_AfterRenderingXTimes(int x)
-        {
-            Enumerable.Range(0, x).ToList().ForEach(i => _game.Render());
-            _game.ElapsedFramesSinceStart.Should().Be(x);
+            _gameScheduler = new GameScheduler(_game);
         }
 
         [Fact]
-        public  void Game_ShouldCallRenderer_AtEveryFrame()
+        public void DefaultTargetTickRate_ShouldBe60()
         {
-            _game.Render();
-            _rendererMock.Verify(r => r.Render(), Times.Once);
-            _game.Render();
-            _rendererMock.Verify(r => r.Render(), Times.Exactly(2));
-            _game.Render();
-            _rendererMock.Verify(r => r.Render(), Times.Exactly(3));
-        }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(1)]
-        [InlineData(10)]
-        public void ElapsedTicks_ShouldEqualX_AfterTickingXTimes(int x)
-        {
-            Enumerable.Range(0, x).ToList().ForEach(i => _game.Tick());
-            _game.ElaspedTicksSinceStart.Should().Be(x);
+            _gameScheduler.TargetTickRate.Should().Be(60);
         }
 
         [Fact]
-        public void Game_ShouldCallPhysicsSimulator_AtEveryTick()
+        public void DefaultTargetFrameRate_ShouldBe120()
         {
-            _game.Tick();
-            _physicsSimulatorMock.Verify(p => p.Tick(), Times.Once);
-            _game.Tick();
-            _physicsSimulatorMock.Verify(p => p.Tick(), Times.Exactly(2));
-            _game.Tick();
-            _physicsSimulatorMock.Verify(p => p.Tick(), Times.Exactly(3));
+            _gameScheduler.TargetFrameRate.Should().Be(60);
+        }
+
+        [Fact]
+        public void It_ShouldNotBeRunning_BeforeItWasStarted()
+        {
+            _gameScheduler.IsRunning.Should().BeFalse();
+        }
+
+        [Fact]
+        public void It_ShouldBeRunning_AfterItWasStarted()
+        {
+            _gameScheduler.Start();
+            _gameScheduler.IsRunning.Should().BeTrue();
+        }
+
+        [Fact]
+        public void It_ShouldNotBeRunning_AfterItWasStopped()
+        {
+            _gameScheduler.Start();
+            _gameScheduler.Stop();
+            _gameScheduler.IsRunning.Should().BeFalse();
         }
     }
 }

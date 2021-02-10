@@ -6,6 +6,6 @@ namespace FizX.Core.Physics
 {
     public interface IPhysicsSimulator
     {
-        void ApplyPhysics();
+        void Tick();
     }
 }

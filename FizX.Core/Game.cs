@@ -30,85 +30,19 @@ namespace FizX.Core
             _worldLoader = boundaries.WorldLoader;
         }
 
-        public bool IsRunning => 
-            _mainTask != null 
-            && ( _mainTask.Status == TaskStatus.Running || _mainTask.Status == TaskStatus.WaitingToRun);
+        public int ElapsedFramesSinceStart { get; private set; } = 0;
+        public int ElaspedTicksSinceStart { get; private set; } = 0;
 
-        public int ElapsedFramesSinceStart { get; set; }
-        public decimal ElapsedMillisecondsSinceStart { get; set; }
-
-        public void Start()
+        public void Render()
         {
-            _mainTask = new Task(Run, TaskCreationOptions.LongRunning);
-            _mainTask.Start();
+            ElapsedFramesSinceStart += 1;
+            _renderer.Render();
         }
 
-        private void Run()
+        public void Tick()
         {
-            var stopWatch = new Stopwatch();
-            while (! _mainTaskCancelationToken.IsCancellationRequested)
-            {
-                Thread.Sleep(16);
-                _renderer.Render();
-                ElapsedMillisecondsSinceStart += 16;
-                ElapsedFramesSinceStart++;
-            }
-        }
-
-        public Task StopAsync()
-        {
-            var task = new Task(() =>
-            {
-                RequestToStop();
-
-                while (IsRunning)
-                    Thread.Sleep(1);
-            });
-            task.Start();
-
-            return task;
-        }
-
-        public void RequestToStop()
-        {
-            _mainTaskCancelationToken = new CancellationToken(true);
-        }
-
-        public Task WaitForNextFrameAsync()
-        {
-            var frameCount = ElapsedFramesSinceStart;
-            var task = new Task(() =>
-            {
-                while (ElapsedFramesSinceStart == frameCount)
-                    Thread.Sleep(1);
-            });
-            task.Start();
-
-            return task;
-        }
-
-        public Task WaitForFrameAsync(int frame)
-        {
-            var task = new Task(() =>
-            {
-                while (ElapsedFramesSinceStart < frame)
-                    Thread.Sleep(1);
-            });
-            task.Start();
-
-            return task;
-        }
-
-        public Task WaitForFirstFrameAsync()
-        {
-            var task = new Task(() =>
-            {
-                while (ElapsedFramesSinceStart == 0)
-                    Thread.Sleep(1);
-            });
-            task.Start();
-
-            return task;
+            ElaspedTicksSinceStart += 1;
+            _physicsSimulator.Tick();
         }
     }
 }
