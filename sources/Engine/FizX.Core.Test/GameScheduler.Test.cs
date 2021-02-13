@@ -53,12 +53,6 @@ namespace FizX.Core.Test
         }
 
         [Fact]
-        public void DefaultTargetFrameRate_ShouldBe120()
-        {
-            _gameScheduler.TargetFrameRate.Should().Be(60);
-        }
-
-        [Fact]
         public void It_ShouldNotBeRunning_BeforeItWasStarted()
         {
             _gameScheduler.IsRunning.Should().BeFalse();

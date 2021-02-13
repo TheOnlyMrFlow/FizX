@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 using Moq;
 using FizX.Core.Rendering;
@@ -7,8 +6,7 @@ using FizX.Core.Logging;
 using FizX.Core.Input;
 using FizX.Core.ContentLoading;
 using FluentAssertions;
-using System.Threading;
-using System.Diagnostics;
+
 using System.Linq;
 
 namespace FizX.Core.Test
@@ -91,11 +89,11 @@ namespace FizX.Core.Test
         public void It_ShouldUpdateWorld_AtEveryTick()
         {
             _game.Tick();
-            _worldMock.Verify(w => w.Update(), Times.Once);
+            _worldMock.Verify(w => w.Tick(It.IsAny<int>()), Times.Once);
             _game.Tick();
-            _worldMock.Verify(w => w.Update(), Times.Exactly(2));
+            _worldMock.Verify(w => w.Tick(It.IsAny<int>()), Times.Exactly(2));
             _game.Tick();
-            _worldMock.Verify(w => w.Update(), Times.Exactly(3));
+            _worldMock.Verify(w => w.Tick(It.IsAny<int>()), Times.Exactly(3));
         }
     }
 }

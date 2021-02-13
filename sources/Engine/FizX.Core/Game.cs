@@ -20,6 +20,9 @@ namespace FizX.Core
 
         public IWorld World { get; private set; }
 
+        public int ElapsedFramesSinceStart { get; private set; } = 0;
+        public int ElaspedTicksSinceStart { get; private set; } = 0;
+
         public Game(IGameBoundaries boundaries)
         {
             _inputManager = boundaries.InputManager;
@@ -31,12 +34,10 @@ namespace FizX.Core
             World = _worldLoader.LoadWorld();
         }
 
-        public int ElapsedFramesSinceStart { get; private set; } = 0;
-        public int ElaspedTicksSinceStart { get; private set; } = 0;
 
         public void Tick()
         {
-            World.Update();
+            World.Tick(123);
 
             _physicsSystem.Tick();
 
