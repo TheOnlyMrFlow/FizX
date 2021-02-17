@@ -1,10 +1,5 @@
 using Xunit;
 using Moq;
-using FizX.Core.Rendering;
-using FizX.Core.Physics;
-using FizX.Core.Logging;
-using FizX.Core.Input;
-using FizX.Core.ContentLoading;
 using FluentAssertions;
 
 using System.Linq;
