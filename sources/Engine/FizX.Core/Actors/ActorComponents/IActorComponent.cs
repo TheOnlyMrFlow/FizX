@@ -5,5 +5,6 @@
         IActor? GetActor();
 
         internal void SetActor(IActor? actor);
+        void Tick(int deltaMs);
     }
 }

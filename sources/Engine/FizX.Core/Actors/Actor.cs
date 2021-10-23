@@ -26,7 +26,8 @@ namespace FizX.Core.Actors
 
         public void Tick(int deltaMs)
         {
-
+            foreach (var component in _components) 
+                component.Tick(deltaMs);
         }
     }
 }

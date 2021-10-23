@@ -1,6 +1,6 @@
 namespace FizX.Core.Actors.ActorComponents
 {
-    public class ActorComponent : IActorComponent
+    public abstract class ActorComponent : IActorComponent
     {
         private IActor? _actor;
 
@@ -9,5 +9,7 @@ namespace FizX.Core.Actors.ActorComponents
 
         void IActorComponent.SetActor(IActor? actor)
             => _actor = actor;
+
+        public virtual void Tick(int deltaMs) { }
     }
 }

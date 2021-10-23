@@ -1,9 +1,7 @@
 using Xunit;
-using Moq;
 using FluentAssertions;
 
 using System.Linq;
-using System.Collections.Generic;
 using FizX.Core.Actors;
 using FizX.Core.Actors.ActorComponents;
 
@@ -18,10 +16,16 @@ namespace FizX.Core.Test
         }
         
         [Fact]
+        public void AnActorComponentShouldHaveNoActorByDefault()
+        {
+            new SampleActorComponent().GetActor().Should().BeNull();
+        }
+        
+        [Fact]
         public void GivenAComponentWasAdded_ThenActorShouldHaveTheAddedComponent()
         {
             var actor = new Actor();
-            var component = new ActorComponent();
+            var component = new SampleActorComponent();
 
             actor.AttachComponent(component);
 
@@ -33,7 +37,7 @@ namespace FizX.Core.Test
         public void GivenAComponentWasAddedToActor_TheComponentActorShouldBeTheActorItWasAddedTo()
         {
             var actor = new Actor();
-            var component = new ActorComponent();
+            var component = new SampleActorComponent();
 
             actor.AttachComponent(component);
 
@@ -44,11 +48,28 @@ namespace FizX.Core.Test
         public void GivenAComponentWasRemoved_ThenActorShouldNotHaveTheRemovedComponent()
         {
             var actor = new Actor();
-            var component = new ActorComponent();
+            var component = new SampleActorComponent();
             actor.AttachComponent(component);
             actor.RemoveComponent(component);
             
             actor.Components.Should().HaveCount(0);
         }
+        
+        [Fact]
+        public void GivenAComponentWasRemovedFromActor_TheComponentActorShouldBeNull()
+        {
+            var actor = new Actor();
+            var component = new SampleActorComponent();
+
+            actor.AttachComponent(component);
+            actor.RemoveComponent(component);
+
+            component.GetActor().Should().BeNull();
+        }
+    }
+
+    internal class SampleActorComponent : ActorComponent
+    {
+        
     }
 }
