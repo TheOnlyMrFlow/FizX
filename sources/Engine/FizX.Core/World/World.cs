@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using FizX.Core.Actors;
 
-namespace FizX.Core
+namespace FizX.Core.World
 {
     public class World : IWorld
     {

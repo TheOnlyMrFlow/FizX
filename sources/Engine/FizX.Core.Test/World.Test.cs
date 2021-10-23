@@ -10,7 +10,7 @@ namespace FizX.Core.Test
 {
     public class WorldTest
     {
-        private readonly World _world = new();
+        private readonly World.World _world = new();
 
         private readonly IEnumerable<Mock<IActor>> _actorsMocks;
         public WorldTest()
@@ -27,7 +27,7 @@ namespace FizX.Core.Test
         [Fact]
         public void World_ShouldHaveNoActor_UponCreation()
         {
-            new World().Actors.Should().BeEmpty();
+            new World.World().Actors.Should().BeEmpty();
         }
 
         [Fact]

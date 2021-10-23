@@ -1,6 +1,7 @@
 ﻿using System;
 using FizX.Core;
 using FizX.Core.Events;
+using FizX.Core.Exceptions;
 
 namespace FizX.Events
 {

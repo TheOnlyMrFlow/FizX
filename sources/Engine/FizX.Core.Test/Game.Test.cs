@@ -8,6 +8,7 @@ using FluentAssertions;
 
 using System.Linq;
 using FizX.Core.Graphics;
+using FizX.Core.World;
 
 namespace FizX.Core.Test
 {

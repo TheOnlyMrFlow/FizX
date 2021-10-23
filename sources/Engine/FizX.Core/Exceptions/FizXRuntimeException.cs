@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace FizX.Core
+namespace FizX.Core.Exceptions
 {
     public class FizXRuntimeException : Exception
     {

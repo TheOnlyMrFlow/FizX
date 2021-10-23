@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using FizX.Core.Graphics;
+using FizX.Core.World;
 
 namespace FizX.Core
 {

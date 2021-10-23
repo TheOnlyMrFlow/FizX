@@ -1,4 +1,6 @@
-﻿namespace FizX.Core.ContentLoading
+﻿using FizX.Core.World;
+
+namespace FizX.Core.ContentLoading
 {
     public interface IWorldLoader
     {
