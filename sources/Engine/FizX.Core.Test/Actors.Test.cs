@@ -66,10 +66,39 @@ namespace FizX.Core.Test
 
             component.GetActor().Should().BeNull();
         }
+        
+        [Fact]
+        public void CallingTickOnActorShouldCallTickOnEveryOfItsComponents()
+        {
+            var actor = new Actor();
+            var component1 = new SampleActorComponent();
+            var component2 = new SampleActorComponent();
+            actor.AttachComponent(component1);
+            actor.AttachComponent(component2);
+            
+            actor.Tick(12);
+            component1.TickCount.Should().Be(1);
+            component2.TickCount.Should().Be(1);
+            component1.LastTickDeltaMs.Should().Be(12);
+            component2.LastTickDeltaMs.Should().Be(12);
+            
+            actor.Tick(16);
+            component1.TickCount.Should().Be(2);
+            component2.TickCount.Should().Be(2);
+            component1.LastTickDeltaMs.Should().Be(16);
+            component2.LastTickDeltaMs.Should().Be(16);
+        }
     }
 
     internal class SampleActorComponent : ActorComponent
     {
-        
+        public int TickCount { get; private set; } = 0;
+        public int LastTickDeltaMs { get; private set; } = 0;
+
+        public override void Tick(int deltaMs)
+        {
+            TickCount++;
+            LastTickDeltaMs = deltaMs;
+        }
     }
 }
