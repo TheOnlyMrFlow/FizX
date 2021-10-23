@@ -1,7 +1,6 @@
 using System;
 using Xunit;
 using Moq;
-using FizX.Core.Rendering;
 using FizX.Core.Physics;
 using FizX.Core.Logging;
 using FizX.Core.Input;
@@ -10,31 +9,25 @@ using FluentAssertions;
 using System.Threading;
 using System.Diagnostics;
 using System.Linq;
+using FizX.Core.Graphics;
 
 namespace FizX.Core.Test
 {
     public class GameSchedulerTest
     {
-        private readonly Mock<IRenderer> _rendererMock;
-        private readonly Mock<IPhysicsSystem> _physicsSimulatorMock;
-        private readonly Mock<ILogger> _loggerMock;        
-        private readonly Mock<IInputManager> _inputManagerMock;
-        private readonly Mock<IWorldLoader> _worldLoaderMock;
+        private readonly Mock<IRenderer> _rendererMock = new();
+        private readonly Mock<IPhysicsSystem> _physicsSimulatorMock = new();
+        private readonly Mock<ILogger> _loggerMock = new();        
+        private readonly Mock<IInputManager> _inputManagerMock = new();
+        private readonly Mock<IWorldLoader> _worldLoaderMock = new();
 
-        private readonly Mock<IGameBoundaries> _gameBoundariesMock;
+        private readonly Mock<IGameBoundaries> _gameBoundariesMock = new();
 
-        private Game _game;
-        private GameScheduler _gameScheduler;
+        private readonly Game _game;
+        private readonly GameScheduler _gameScheduler;
 
         public GameSchedulerTest()
         {
-            _rendererMock = new Mock<IRenderer>();
-            _physicsSimulatorMock = new Mock<IPhysicsSystem>();
-            _loggerMock = new Mock<ILogger>();
-            _inputManagerMock = new Mock<IInputManager>();
-            _worldLoaderMock = new Mock<IWorldLoader>();
-
-            _gameBoundariesMock = new Mock<IGameBoundaries>();
             _gameBoundariesMock.Setup(gb => gb.Renderer).Returns(_rendererMock.Object);
             _gameBoundariesMock.Setup(gb => gb.PhysicsSystem).Returns(_physicsSimulatorMock.Object);
             _gameBoundariesMock.Setup(gb => gb.Logger).Returns(_loggerMock.Object);
@@ -47,9 +40,15 @@ namespace FizX.Core.Test
         }
 
         [Fact]
-        public void DefaultTargetTickRate_ShouldBe60()
+        public void DefaultTargetFrameRate_ShouldBe60()
         {
-            _gameScheduler.TargetTickRate.Should().Be(60);
+            _gameScheduler.TargetFrameRate.Should().Be(60);
+        }
+        
+        [Fact]
+        public void TickRate_ShouldBeAConstWorth60()
+        {
+            GameScheduler.TickRate.Should().Be(60);
         }
 
         [Fact]

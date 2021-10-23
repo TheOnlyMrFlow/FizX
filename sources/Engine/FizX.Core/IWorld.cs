@@ -7,6 +7,6 @@ namespace FizX.Core
     public interface IWorld
     {
         IEnumerable<IActor> Actors { get; }
-        void Tick(int detaMs);
+        void Tick(int deltaMs);
     }
 }

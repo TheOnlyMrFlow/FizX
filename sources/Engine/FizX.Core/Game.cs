@@ -2,11 +2,11 @@
 using FizX.Core.Input;
 using FizX.Core.Logging;
 using FizX.Core.Physics;
-using FizX.Core.Rendering;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using FizX.Core.Graphics;
 
 namespace FizX.Core
 {
@@ -21,7 +21,7 @@ namespace FizX.Core
         public IWorld World { get; private set; }
 
         public int ElapsedFramesSinceStart { get; private set; } = 0;
-        public int ElaspedTicksSinceStart { get; private set; } = 0;
+        public int ElapsedTicksSinceStart { get; private set; } = 0;
 
         public Game(IGameBoundaries boundaries)
         {
@@ -35,15 +35,18 @@ namespace FizX.Core
         }
 
 
-        public void Tick()
+        public void Tick(int deltaMs)
         {
-            World.Tick(123);
+            World.Tick(deltaMs);
 
-            _physicsSystem.Tick();
-
+            _physicsSystem.Tick(deltaMs);
+            
+            ElapsedTicksSinceStart += 1;
+        }
+        
+        public void Render()
+        {
             _renderer.Render();
-
-            ElaspedTicksSinceStart += 1;
         }
     }
 }

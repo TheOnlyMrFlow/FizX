@@ -6,8 +6,10 @@ namespace FizX.Core
 {
     public class GameScheduler
     {
+        public const decimal TickRate = 60;
         public Game Game { get; }
-        public decimal TargetTickRate { get; set; } = 60;
+        
+        public decimal TargetFrameRate { get; set; } = 60;
         public bool IsRunning { get; set; } = false;
 
         public GameScheduler(Game game)

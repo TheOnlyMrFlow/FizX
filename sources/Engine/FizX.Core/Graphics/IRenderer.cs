@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FizX.Core.Rendering
+﻿namespace FizX.Core.Graphics
 {
     public interface IRenderer
     {

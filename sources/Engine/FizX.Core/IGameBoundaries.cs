@@ -1,8 +1,8 @@
 ﻿using FizX.Core.ContentLoading;
+using FizX.Core.Graphics;
 using FizX.Core.Input;
 using FizX.Core.Logging;
 using FizX.Core.Physics;
-using FizX.Core.Rendering;
 
 namespace FizX.Core
 {

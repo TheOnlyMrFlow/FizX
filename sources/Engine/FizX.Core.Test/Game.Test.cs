@@ -1,6 +1,5 @@
 using Xunit;
 using Moq;
-using FizX.Core.Rendering;
 using FizX.Core.Physics;
 using FizX.Core.Logging;
 using FizX.Core.Input;
@@ -8,6 +7,7 @@ using FizX.Core.ContentLoading;
 using FluentAssertions;
 
 using System.Linq;
+using FizX.Core.Graphics;
 
 namespace FizX.Core.Test
 {
@@ -24,6 +24,8 @@ namespace FizX.Core.Test
         private readonly Mock<IWorld> _worldMock;
 
         private Game _game;
+
+        private readonly int _anyInt = It.IsAny<int>();
 
         public GameTest()
         {
@@ -59,40 +61,40 @@ namespace FizX.Core.Test
         [InlineData(10)]
         public void ElapsedTicks_ShouldEqualX_AfterTickingXTimes(int x)
         {
-            Enumerable.Range(0, x).ToList().ForEach(i => _game.Tick());
-            _game.ElaspedTicksSinceStart.Should().Be(x);
+            Enumerable.Range(0, x).ToList().ForEach(i => _game.Tick(_anyInt));
+            _game.ElapsedTicksSinceStart.Should().Be(x);
         }
 
         [Fact]
         public  void It_ShouldCallRenderer_AtEveryTick()
         {
-            _game.Tick();
+            _game.Tick(_anyInt);
             _rendererMock.Verify(r => r.Render(), Times.Once);
-            _game.Tick();
+            _game.Tick(_anyInt);
             _rendererMock.Verify(r => r.Render(), Times.Exactly(2));
-            _game.Tick();
+            _game.Tick(_anyInt);
             _rendererMock.Verify(r => r.Render(), Times.Exactly(3));
         }
 
         [Fact]
         public void It_ShouldRunPhysicsSystem_AtEveryTick()
         {
-            _game.Tick();
-            _physicsSystemMock.Verify(p => p.Tick(), Times.Once);
-            _game.Tick();
-            _physicsSystemMock.Verify(p => p.Tick(), Times.Exactly(2));
-            _game.Tick();
-            _physicsSystemMock.Verify(p => p.Tick(), Times.Exactly(3));
+            _game.Tick(_anyInt);
+            _physicsSystemMock.Verify(p => p.Tick(_anyInt), Times.Once);
+            _game.Tick(_anyInt);
+            _physicsSystemMock.Verify(p => p.Tick(_anyInt), Times.Exactly(2));
+            _game.Tick(_anyInt);
+            _physicsSystemMock.Verify(p => p.Tick(_anyInt), Times.Exactly(3));
         }
 
         [Fact]
         public void It_ShouldUpdateWorld_AtEveryTick()
         {
-            _game.Tick();
+            _game.Tick(_anyInt);
             _worldMock.Verify(w => w.Tick(It.IsAny<int>()), Times.Once);
-            _game.Tick();
+            _game.Tick(_anyInt);
             _worldMock.Verify(w => w.Tick(It.IsAny<int>()), Times.Exactly(2));
-            _game.Tick();
+            _game.Tick(_anyInt);
             _worldMock.Verify(w => w.Tick(It.IsAny<int>()), Times.Exactly(3));
         }
     }

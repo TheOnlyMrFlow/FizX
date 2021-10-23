@@ -9,9 +9,9 @@ namespace FizX.Core.Test
 {
     public class WorldTest
     {
-        private World _world = new World();
+        private readonly World _world = new();
 
-        private IEnumerable<Mock<IActor>> _actorsMocks;
+        private readonly IEnumerable<Mock<IActor>> _actorsMocks;
         public WorldTest()
         {
             _actorsMocks = Enumerable.Range(0, 3).Select(i =>
