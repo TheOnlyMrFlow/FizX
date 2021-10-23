@@ -66,13 +66,13 @@ namespace FizX.Core.Test
         }
 
         [Fact]
-        public  void It_ShouldCallRenderer_AtEveryTick()
+        public  void It_ShouldCallRenderer_AtEveryRendererCall()
         {
-            _game.Tick(_anyInt);
+            _game.Render();
             _rendererMock.Verify(r => r.Render(), Times.Once);
-            _game.Tick(_anyInt);
+            _game.Render();
             _rendererMock.Verify(r => r.Render(), Times.Exactly(2));
-            _game.Tick(_anyInt);
+            _game.Render();
             _rendererMock.Verify(r => r.Render(), Times.Exactly(3));
         }
 

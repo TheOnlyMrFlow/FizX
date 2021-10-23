@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.Events", "FizX.Events\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.Events.Test", "FizX.Events.Test\FizX.Events.Test.csproj", "{FF56DF51-2094-4707-A628-92C088F1E4E1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9853BEE8-2C5C-46A1-8FE2-19FA20F0AF7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,5 +105,10 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F8251650-639F-4B2E-8C69-4D7EBB11F9F3}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B8371C0B-2EE9-4CE6-97C7-D8A045A17EEC} = {9853BEE8-2C5C-46A1-8FE2-19FA20F0AF7C}
+		{FF56DF51-2094-4707-A628-92C088F1E4E1} = {9853BEE8-2C5C-46A1-8FE2-19FA20F0AF7C}
+		{57362EC0-7F79-4CB4-808C-571AC6C9C4EB} = {9853BEE8-2C5C-46A1-8FE2-19FA20F0AF7C}
 	EndGlobalSection
 EndGlobal
