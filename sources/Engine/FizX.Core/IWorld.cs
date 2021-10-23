@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using FizX.Core.Actors;
 
 namespace FizX.Core
 {

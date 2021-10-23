@@ -4,6 +4,7 @@ using FluentAssertions;
 
 using System.Linq;
 using System.Collections.Generic;
+using FizX.Core.Actors;
 
 namespace FizX.Core.Test
 {
