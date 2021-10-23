@@ -1,11 +1,8 @@
 ﻿using FizX.Core.ContentLoading;
+using FizX.Core.Events;
 using FizX.Core.Input;
 using FizX.Core.Logging;
 using FizX.Core.Physics;
-using System;
-using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 using FizX.Core.Graphics;
 using FizX.Core.World;
 
@@ -18,6 +15,7 @@ namespace FizX.Core
         private readonly IPhysicsSystem _physicsSystem;
         private readonly IRenderer _renderer;
         private readonly IWorldLoader _worldLoader;
+        private readonly IEventBus _eventBus;
 
         public IWorld World { get; private set; }
 
@@ -31,6 +29,7 @@ namespace FizX.Core
             _physicsSystem = boundaries.PhysicsSystem;
             _renderer = boundaries.Renderer;
             _worldLoader = boundaries.WorldLoader;
+            _eventBus = boundaries.EventBus;
 
             World = _worldLoader.LoadWorld();
         }

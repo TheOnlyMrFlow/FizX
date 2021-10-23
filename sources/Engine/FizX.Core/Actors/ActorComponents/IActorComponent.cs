@@ -1,10 +1,9 @@
 ﻿namespace FizX.Core.Actors.ActorComponents
 {
-    public interface IActorComponent
+    public interface IActorComponent : ITickable
     {
         IActor? GetActor();
 
         internal void SetActor(IActor? actor);
-        void Tick(int deltaMs);
     }
 }

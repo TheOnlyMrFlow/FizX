@@ -1,4 +1,5 @@
 ﻿using FizX.Core.ContentLoading;
+using FizX.Core.Events;
 using FizX.Core.Graphics;
 using FizX.Core.Input;
 using FizX.Core.Logging;
@@ -13,5 +14,6 @@ namespace FizX.Core
         IInputManager InputManager { get; }
         IWorldLoader WorldLoader { get; }
         IPhysicsSystem PhysicsSystem { get; }
+        IEventBus EventBus { get; }
     }
 }
