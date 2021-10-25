@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using FizX.Core.Actors.ActorComponents;
+using FizX.Core.Geometry;
 
 namespace FizX.Core.Actors
 {
     public class Actor : IActor
     {
         public int Id => throw new NotImplementedException();
-        
+
+        public Transform Transform { get; } = new();
+
         private readonly ICollection<IActorComponent> _components = new List<IActorComponent>();
 
         public IEnumerable<IActorComponent> Components => _components;

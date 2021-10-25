@@ -16,7 +16,7 @@ namespace FizX.Core.Test
     public class GameSchedulerTest
     {
         private readonly Mock<IRenderer> _rendererMock = new();
-        private readonly Mock<IPhysicsSystem> _physicsSimulatorMock = new();
+        private readonly Mock<IPhysicsEngine> _physicsSimulatorMock = new();
         private readonly Mock<ILogger> _loggerMock = new();        
         private readonly Mock<IInputManager> _inputManagerMock = new();
         private readonly Mock<IWorldLoader> _worldLoaderMock = new();
@@ -29,7 +29,7 @@ namespace FizX.Core.Test
         public GameSchedulerTest()
         {
             _gameBoundariesMock.Setup(gb => gb.Renderer).Returns(_rendererMock.Object);
-            _gameBoundariesMock.Setup(gb => gb.PhysicsSystem).Returns(_physicsSimulatorMock.Object);
+            _gameBoundariesMock.Setup(gb => gb.PhysicsEngine).Returns(_physicsSimulatorMock.Object);
             _gameBoundariesMock.Setup(gb => gb.Logger).Returns(_loggerMock.Object);
             _gameBoundariesMock.Setup(gb => gb.InputManager).Returns(_inputManagerMock.Object);
             _gameBoundariesMock.Setup(gb => gb.WorldLoader).Returns(_worldLoaderMock.Object);

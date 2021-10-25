@@ -12,7 +12,7 @@ namespace FizX.Core
     {
         private readonly IInputManager _inputManager;
         private readonly ILogger _logger;
-        private readonly IPhysicsSystem _physicsSystem;
+        private readonly IPhysicsEngine _physicsEngine;
         private readonly IRenderer _renderer;
         private readonly IWorldLoader _worldLoader;
         private readonly IEventBus _eventBus;
@@ -26,7 +26,7 @@ namespace FizX.Core
         {
             _inputManager = boundaries.InputManager;
             _logger = boundaries.Logger;
-            _physicsSystem = boundaries.PhysicsSystem;
+            _physicsEngine = boundaries.PhysicsEngine;
             _renderer = boundaries.Renderer;
             _worldLoader = boundaries.WorldLoader;
             _eventBus = boundaries.EventBus;
@@ -39,7 +39,7 @@ namespace FizX.Core
         {
             World.Tick(deltaMs);
 
-            _physicsSystem.Tick(deltaMs);
+            _physicsEngine.Tick(deltaMs);
             
             ElapsedTicksSinceStart += 1;
         }

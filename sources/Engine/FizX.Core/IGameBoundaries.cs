@@ -13,7 +13,7 @@ namespace FizX.Core
         IRenderer Renderer { get; }
         IInputManager InputManager { get; }
         IWorldLoader WorldLoader { get; }
-        IPhysicsSystem PhysicsSystem { get; }
+        IPhysicsEngine PhysicsEngine { get; }
         IEventBus EventBus { get; }
     }
 }

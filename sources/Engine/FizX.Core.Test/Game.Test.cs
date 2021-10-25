@@ -15,7 +15,7 @@ namespace FizX.Core.Test
     public class GameTest
     {
         private readonly Mock<IRenderer> _rendererMock;
-        private readonly Mock<IPhysicsSystem> _physicsSystemMock;
+        private readonly Mock<IPhysicsEngine> _physicsSystemMock;
         private readonly Mock<ILogger> _loggerMock;        
         private readonly Mock<IInputManager> _inputManagerMock;
         private readonly Mock<IWorldLoader> _worldLoaderMock;
@@ -31,7 +31,7 @@ namespace FizX.Core.Test
         public GameTest()
         {
             _rendererMock = new Mock<IRenderer>();
-            _physicsSystemMock = new Mock<IPhysicsSystem>();
+            _physicsSystemMock = new Mock<IPhysicsEngine>();
             _loggerMock = new Mock<ILogger>();
             _inputManagerMock = new Mock<IInputManager>();
             _worldLoaderMock = new Mock<IWorldLoader>();
@@ -41,7 +41,7 @@ namespace FizX.Core.Test
 
             _gameBoundariesMock = new Mock<IGameBoundaries>();
             _gameBoundariesMock.Setup(gb => gb.Renderer).Returns(_rendererMock.Object);
-            _gameBoundariesMock.Setup(gb => gb.PhysicsSystem).Returns(_physicsSystemMock.Object);
+            _gameBoundariesMock.Setup(gb => gb.PhysicsEngine).Returns(_physicsSystemMock.Object);
             _gameBoundariesMock.Setup(gb => gb.Logger).Returns(_loggerMock.Object);
             _gameBoundariesMock.Setup(gb => gb.InputManager).Returns(_inputManagerMock.Object);
             _gameBoundariesMock.Setup(gb => gb.WorldLoader).Returns(_worldLoaderMock.Object);
