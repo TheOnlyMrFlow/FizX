@@ -21,8 +21,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\FizX.Core\FizX.Core.csproj" />
-        <ProjectReference Include="..\FizX.Events\FizX.Events.csproj" />
+        <ProjectReference Include="..\..\FizX.Core\FizX.Core.csproj" />
+        <ProjectReference Include="..\..\FizX.Events\FizX.Events.csproj" />
     </ItemGroup>
 
 </Project>

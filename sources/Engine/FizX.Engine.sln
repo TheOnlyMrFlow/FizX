@@ -5,15 +5,15 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FizX.Core", "FizX.Core\FizX.Core.csproj", "{7ECA7F5F-34AB-42FC-9905-FE0FF209BE93}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FizX.Core.Test", "FizX.Core.Test\FizX.Core.Test.csproj", "{57362EC0-7F79-4CB4-808C-571AC6C9C4EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FizX.Core.Test", "Tests\FizX.Core.Test\FizX.Core.Test.csproj", "{57362EC0-7F79-4CB4-808C-571AC6C9C4EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.Physics", "FizX.Physics\FizX.Physics.csproj", "{38883113-D556-4601-BDDE-B6B839139880}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.Physics.Test", "FizX.Physics.Test\FizX.Physics.Test.csproj", "{B8371C0B-2EE9-4CE6-97C7-D8A045A17EEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.Physics.Test", "Tests\FizX.Physics.Test\FizX.Physics.Test.csproj", "{B8371C0B-2EE9-4CE6-97C7-D8A045A17EEC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.Events", "FizX.Events\FizX.Events.csproj", "{AF94BD05-5E25-4464-A4C3-5F870A635843}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.Events.Test", "FizX.Events.Test\FizX.Events.Test.csproj", "{FF56DF51-2094-4707-A628-92C088F1E4E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.Events.Test", "Tests\FizX.Events.Test\FizX.Events.Test.csproj", "{FF56DF51-2094-4707-A628-92C088F1E4E1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9853BEE8-2C5C-46A1-8FE2-19FA20F0AF7C}"
 EndProject
