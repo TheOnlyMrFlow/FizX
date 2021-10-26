@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using FizX.Core.Actors.ActorComponents;
+using FizX.Core.Geometry;
 using FizX.Core.Geometry.Shapes;
-using FizX.Physics;
 
 namespace FizX.Core.Physics.Collisions.ColliderComponents
 {

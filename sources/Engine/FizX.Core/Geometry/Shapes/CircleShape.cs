@@ -1,11 +1,11 @@
-﻿using FizX.Physics;
+﻿using System.Numerics;
 
 namespace FizX.Core.Geometry.Shapes
 {
     public class CircleShape : Shape
     {
         public float Radius { get; set; }
-        
+
         public override AABB GetBoundingBox(Transform transform)
         {
             var position = transform.Position;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace FizX.Physics
+namespace FizX.Core.Geometry
 {
     public class AABB
     {
