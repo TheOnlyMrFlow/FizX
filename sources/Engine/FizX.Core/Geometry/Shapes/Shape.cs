@@ -4,6 +4,6 @@ namespace FizX.Core.Geometry.Shapes
 {
     public abstract class Shape
     {
-        public abstract AABB GetBoundingBox(Transform transform);
+        public abstract Aabb GetBoundingBox(Transform transform);
     }
 }

@@ -13,7 +13,7 @@ using FizX.Core.Graphics;
 
 namespace FizX.Core.Test
 {
-    public class GameSchedulerTest
+    public class GameScheduler_Test
     {
         private readonly Mock<IRenderer> _rendererMock = new();
         private readonly Mock<IPhysicsEngine> _physicsSimulatorMock = new();
@@ -26,7 +26,7 @@ namespace FizX.Core.Test
         private readonly Game _game;
         private readonly GameScheduler _gameScheduler;
 
-        public GameSchedulerTest()
+        public GameScheduler_Test()
         {
             _gameBoundariesMock.Setup(gb => gb.Renderer).Returns(_rendererMock.Object);
             _gameBoundariesMock.Setup(gb => gb.PhysicsEngine).Returns(_physicsSimulatorMock.Object);

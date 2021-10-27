@@ -13,7 +13,7 @@ namespace FizX.Core.Geometry.Shapes
         public float Height { get; }
         public float Width { get; }
         
-        public override AABB GetBoundingBox(Transform transform)
+        public override Aabb GetBoundingBox(Transform transform)
         {
             throw new System.NotImplementedException();
         }

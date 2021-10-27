@@ -3,14 +3,14 @@ using System.Numerics;
 
 namespace FizX.Core.Geometry
 {
-    public class AABB
+    public class Aabb
     {
-        private float MinX { get; }
-        private float MaxX { get; }
-        private float MinY { get; }
-        private float MaxY { get; }
+        public float MinX { get; }
+        public float MaxX { get; }
+        public float MinY { get; }
+        public float MaxY { get; }
         
-        public AABB(float minX, float maxX, float minY, float maxY)
+        public Aabb(float minX, float maxX, float minY, float maxY)
         {
             MinX = minX;
             MaxX = maxX;
@@ -18,7 +18,7 @@ namespace FizX.Core.Geometry
             MaxY = maxY;
         }
         
-        public AABB(Vector2 pointA, Vector2 pointB)
+        public Aabb(Vector2 pointA, Vector2 pointB)
         {
             MinX = Math.Min(pointA.X, pointB.X);
             MaxX = Math.Max(pointA.X, pointB.X);
@@ -26,7 +26,8 @@ namespace FizX.Core.Geometry
             MaxY = Math.Max(pointA.Y, pointB.Y);
         }
 
-        public bool Overlaps(AABB other) => 
-            (MinX <= other.MaxX && MaxX >= other.MinX) && (MinY <= other.MinY && MaxY >= other.MinY);
+        public bool Overlaps(Aabb other) =>
+            (MinX <= other.MaxX && MaxX >= other.MinX) &&
+            (MinY <= other.MaxY && MaxY >= other.MinY);
     }
 }

@@ -12,7 +12,7 @@ using FizX.Core.World;
 
 namespace FizX.Core.Test
 {
-    public class GameTest
+    public class Game_Test
     {
         private readonly Mock<IRenderer> _rendererMock;
         private readonly Mock<IPhysicsEngine> _physicsSystemMock;
@@ -24,11 +24,11 @@ namespace FizX.Core.Test
 
         private readonly Mock<IWorld> _worldMock;
 
-        private Game _game;
+        private readonly Game _game;
 
         private readonly int _anyInt = It.IsAny<int>();
 
-        public GameTest()
+        public Game_Test()
         {
             _rendererMock = new Mock<IRenderer>();
             _physicsSystemMock = new Mock<IPhysicsEngine>();

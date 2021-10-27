@@ -1,19 +1,18 @@
-using Xunit;
-using Moq;
-using FluentAssertions;
-
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using FizX.Core.Actors;
+using FluentAssertions;
+using Moq;
+using Xunit;
 
-namespace FizX.Core.Test
+namespace FizX.Core.Test.World
 {
-    public class WorldTest
+    public class World_Test
     {
-        private readonly World.World _world = new();
+        private readonly Core.World.World _world = new();
 
         private readonly IEnumerable<Mock<IActor>> _actorsMocks;
-        public WorldTest()
+        public World_Test()
         {
             _actorsMocks = Enumerable.Range(0, 3).Select(i =>
             {
@@ -27,7 +26,7 @@ namespace FizX.Core.Test
         [Fact]
         public void World_ShouldHaveNoActor_UponCreation()
         {
-            new World.World().Actors.Should().BeEmpty();
+            new Core.World.World().Actors.Should().BeEmpty();
         }
 
         [Fact]

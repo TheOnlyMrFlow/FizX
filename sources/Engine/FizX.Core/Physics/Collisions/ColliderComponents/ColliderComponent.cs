@@ -18,7 +18,7 @@ namespace FizX.Core.Physics.Collisions.ColliderComponents
         public abstract Shape Shape { get; }
         
         // public abstract void OnCollision();
-        public AABB GetBoundingBox()
+        public Aabb GetBoundingBox()
         {
             var actor = GetActor();
             if (actor is null)

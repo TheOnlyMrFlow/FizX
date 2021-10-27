@@ -17,7 +17,7 @@ namespace FizX.Core.Geometry.Shapes
                 .ToArray();
         }
 
-        public override AABB GetBoundingBox(Transform transform)
+        public override Aabb GetBoundingBox(Transform transform)
         {
             throw new System.NotImplementedException();
         }

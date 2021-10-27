@@ -1,18 +1,17 @@
-using Xunit;
-using FluentAssertions;
-
 using System.Linq;
 using FizX.Core.Actors;
 using FizX.Core.Actors.ActorComponents;
+using FluentAssertions;
+using Xunit;
 
-namespace FizX.Core.Test
+namespace FizX.Core.Test.Actors
 {
-    public class ActorsTest
+    public class Actor_Test
     {
         [Fact]
         public void AnActorShouldHaveNoComponentByDefault()
         {
-            new Actor().Components.Should().HaveCount(0);
+            new Actor().Components.Should().BeEmpty();
         }
         
         [Fact]
