@@ -4,18 +4,20 @@ namespace FizX.Core.Geometry.Shapes
 {
     public class RectangleShape : Shape
     {
-        public RectangleShape(float height, float width)
+        public RectangleShape(float width, float height)
         {
-            Height = height;
             Width = width;
+            Height = height;
         }
         
         public float Height { get; }
         public float Width { get; }
-        
+
         public override Aabb GetBoundingBox(Transform transform)
-        {
-            throw new System.NotImplementedException();
-        }
+            => new Aabb(
+                transform.Position.X - (Width / 2f),
+                transform.Position.X + (Width / 2f),
+                transform.Position.Y - (Height / 2f), 
+                transform.Position.Y + (Height / 2f));
     }
 }
