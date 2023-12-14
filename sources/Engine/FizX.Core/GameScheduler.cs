@@ -1,28 +1,27 @@
 ﻿using System;
 
-namespace FizX.Core
+namespace FizX.Core;
+
+public class GameScheduler
 {
-    public class GameScheduler
-    {
-        public const decimal TickRate = 60;
-        public Game Game { get; }
+    public const decimal TickRate = 60;
+    public Game Game { get; }
         
-        public decimal TargetFrameRate { get; set; } = 60;
-        public bool IsRunning { get; set; } = false;
+    public decimal TargetFrameRate { get; set; } = 60;
+    public bool IsRunning { get; set; } = false;
 
-        public GameScheduler(Game game)
-        {
-            Game = game;
-        }
+    public GameScheduler(Game game)
+    {
+        Game = game;
+    }
 
-        public void Start()
-        {
-            IsRunning = true;
-        }
+    public void Start()
+    {
+        IsRunning = true;
+    }
 
-        public void Stop()
-        {
-            IsRunning = false;
-        }
+    public void Stop()
+    {
+        IsRunning = false;
     }
 }

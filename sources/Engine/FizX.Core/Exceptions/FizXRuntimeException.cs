@@ -1,8 +1,7 @@
 ﻿using System;
 
-namespace FizX.Core.Exceptions
+namespace FizX.Core.Exceptions;
+
+public class FizXRuntimeException : Exception
 {
-    public class FizXRuntimeException : Exception
-    {
-    }
 }

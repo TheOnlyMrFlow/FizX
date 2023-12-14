@@ -1,7 +1,6 @@
-﻿namespace FizX.Core
+﻿namespace FizX.Core.Common;
+
+public interface ITickable
 {
-    public interface ITickable
-    {
-        void Tick(int deltaMs);
-    }
+    void Tick(int deltaMs);
 }

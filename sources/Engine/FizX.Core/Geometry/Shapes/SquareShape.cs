@@ -1,7 +1,6 @@
-﻿namespace FizX.Core.Geometry.Shapes
+﻿namespace FizX.Core.Geometry.Shapes;
+
+public class SquareShape
 {
-    public class SquareShape
-    {
-        public int Height { get; set; }
-    }
+    public int Height { get; set; }
 }

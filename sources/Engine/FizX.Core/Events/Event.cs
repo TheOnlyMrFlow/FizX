@@ -1,7 +1,6 @@
-﻿namespace FizX.Core.Events
+﻿namespace FizX.Core.Events;
+
+public abstract class Event
 {
-    public abstract class Event
-    {
         
-    }
 }

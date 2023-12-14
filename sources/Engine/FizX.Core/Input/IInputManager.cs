@@ -1,6 +1,5 @@
-﻿namespace FizX.Core.Input
+﻿namespace FizX.Core.Input;
+
+public interface IInputManager
 {
-    public interface IInputManager
-    {
-    }
 }

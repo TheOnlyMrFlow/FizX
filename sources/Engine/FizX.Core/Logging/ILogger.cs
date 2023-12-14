@@ -1,6 +1,5 @@
-﻿namespace FizX.Core.Logging
+﻿namespace FizX.Core.Logging;
+
+public interface ILogger
 {
-    public interface ILogger
-    {
-    }
 }

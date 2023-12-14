@@ -1,11 +1,10 @@
 ﻿using FizX.Core.Physics.Collisions.ColliderComponents;
 
-namespace FizX.Core.Physics
-{
-    public interface IPhysicsEngine
-    {
-        void Tick(decimal deltaMs);
+namespace FizX.Core.Physics;
 
-        void RegisterCollider(ColliderComponent colliderComponent, string layer);
-    }
+public interface IPhysicsEngine
+{
+    void Tick(decimal deltaMs);
+
+    void RegisterCollider(ColliderComponent colliderComponent, string layer);
 }

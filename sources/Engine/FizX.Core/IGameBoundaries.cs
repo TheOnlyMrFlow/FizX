@@ -5,15 +5,14 @@ using FizX.Core.Input;
 using FizX.Core.Logging;
 using FizX.Core.Physics;
 
-namespace FizX.Core
+namespace FizX.Core;
+
+public interface IGameBoundaries
 {
-     public interface IGameBoundaries
-    {
-        ILogger Logger { get; }
-        IRenderer Renderer { get; }
-        IInputManager InputManager { get; }
-        IWorldLoader WorldLoader { get; }
-        IPhysicsEngine PhysicsEngine { get; }
-        IEventBus EventBus { get; }
-    }
+    ILogger Logger { get; }
+    IRenderer Renderer { get; }
+    IInputManager InputManager { get; }
+    IWorldLoader WorldLoader { get; }
+    IPhysicsEngine PhysicsEngine { get; }
+    IEventBus EventBus { get; }
 }

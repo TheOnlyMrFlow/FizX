@@ -1,9 +1,8 @@
 using System;
 using Xunit;
 
-namespace FizX.Physics.Test
+namespace FizX.Physics.Test;
+
+public class CollisionLayerTest
 {
-    public class CollisionLayerTest
-    {
-    }
 }

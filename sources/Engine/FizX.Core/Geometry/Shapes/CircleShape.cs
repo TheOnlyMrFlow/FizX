@@ -1,19 +1,13 @@
-namespace FizX.Core.Geometry.Shapes
+namespace FizX.Core.Geometry.Shapes;
+
+public class CircleShape(float radius) : Shape
 {
-    public class CircleShape : Shape
+    public float Radius { get; } = radius;
+
+    public override Aabb GetBoundingBox(Transform transform)
     {
-        public CircleShape(float radius)
-        {
-            Radius = radius;
-        }
-        
-        public float Radius { get; set; }
-        
-        public override Aabb GetBoundingBox(Transform transform)
-        {
-            var position = transform.Position;
+        var position = transform.Position;
             
-            return new Aabb(position.X - Radius, position.X + Radius, position.Y - Radius, position.Y + Radius);
-        }
+        return new Aabb(position.X - Radius, position.X + Radius, position.Y - Radius, position.Y + Radius);
     }
 }

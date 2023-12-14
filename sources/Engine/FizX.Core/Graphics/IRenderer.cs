@@ -1,7 +1,6 @@
-﻿namespace FizX.Core.Graphics
+﻿namespace FizX.Core.Graphics;
+
+public interface IRenderer
 {
-    public interface IRenderer
-    {
-        void Render();
-    }
+    void Render();
 }

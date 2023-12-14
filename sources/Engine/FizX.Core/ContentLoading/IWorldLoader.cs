@@ -1,9 +1,8 @@
 ﻿using FizX.Core.World;
 
-namespace FizX.Core.ContentLoading
+namespace FizX.Core.ContentLoading;
+
+public interface IWorldLoader
 {
-    public interface IWorldLoader
-    {
-        IWorld LoadWorld();
-    }
+    IWorld LoadWorld();
 }

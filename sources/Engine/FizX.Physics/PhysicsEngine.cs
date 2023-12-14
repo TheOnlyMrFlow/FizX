@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using FizX.Core.Physics;
 using FizX.Core.Physics.Collisions.ColliderComponents;
 
-namespace FizX.Physics
+namespace FizX.Physics;
+
+public class PhysicsEngine : IPhysicsEngine
 {
-    public class PhysicsEngine : IPhysicsEngine
+    private readonly Dictionary<string, CollisionLayer> _collisionLayers = new ();
+
+    public void Tick(decimal deltaMs)
     {
-        private readonly Dictionary<string, CollisionLayer> _collisionLayers = new ();
+        throw new NotImplementedException();
+    }
 
-        public void Tick(decimal deltaMs)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RegisterCollider(ColliderComponent colliderComponent, string layer)
-        {
-            if (! _collisionLayers.ContainsKey(layer))
-                _collisionLayers.Add(layer, new CollisionLayer());
+    public void RegisterCollider(ColliderComponent colliderComponent, string layer)
+    {
+        if (! _collisionLayers.ContainsKey(layer))
+            _collisionLayers.Add(layer, new CollisionLayer());
             
-            _collisionLayers[layer].AddCollider(colliderComponent);
-        }
+        _collisionLayers[layer].AddCollider(colliderComponent);
     }
 }

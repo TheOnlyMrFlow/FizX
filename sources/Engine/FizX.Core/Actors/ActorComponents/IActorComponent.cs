@@ -1,9 +1,10 @@
-﻿namespace FizX.Core.Actors.ActorComponents
-{
-    public interface IActorComponent : ITickable
-    {
-        IActor? GetActor();
+﻿using FizX.Core.Common;
 
-        internal void SetActor(IActor? actor);
-    }
+namespace FizX.Core.Actors.ActorComponents;
+
+public interface IActorComponent : ITickable
+{
+    IActor? GetActor();
+
+    internal void SetActor(IActor? actor);
 }
