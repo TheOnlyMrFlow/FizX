@@ -11,7 +11,7 @@ public class PhysicsEngine : IPhysicsEngine
 
     public void Tick(decimal deltaMs)
     {
-        throw new NotImplementedException();
+        // todo
     }
 
     public void RegisterCollider(ColliderComponent colliderComponent, string layer)

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using FizX.Core.Actors;
 
-namespace FizX.Core.World;
+namespace FizX.Core.Worlds;
 
 public class World : IWorld
 {
-    private readonly List<IActor> _actors = new List<IActor>();
-    public IEnumerable<IActor> Actors => _actors;
+    private readonly List<Actor> _actors = new List<Actor>();
+    public IEnumerable<Actor> Actors => _actors;
 
     public void Tick(int deltaTime)
     {
@@ -14,7 +14,7 @@ public class World : IWorld
             actor.Tick(deltaTime);
     }
 
-    public void AddActor(IActor actor)
+    public void AddActor(Actor actor)
     {
         _actors.Add(actor);
     }

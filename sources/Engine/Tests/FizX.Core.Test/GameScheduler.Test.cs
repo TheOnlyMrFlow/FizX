@@ -21,7 +21,7 @@ public class GameScheduler_Test
     private readonly Mock<IInputManager> _inputManagerMock = new();
     private readonly Mock<IWorldLoader> _worldLoaderMock = new();
 
-    private readonly Mock<IGameBoundaries> _gameBoundariesMock = new();
+    private readonly Mock<GameBoundaries> _gameBoundariesMock = new();
 
     private readonly Game _game;
     private readonly GameScheduler _gameScheduler;
@@ -42,7 +42,7 @@ public class GameScheduler_Test
     [Fact]
     public void DefaultTargetFrameRate_ShouldBe60()
     {
-        _gameScheduler.TargetFrameRate.Should().Be(60);
+        _gameScheduler.MaxFrameRate.Should().Be(60);
     }
         
     [Fact]

@@ -4,7 +4,7 @@ using FizX.Core.Input;
 using FizX.Core.Logging;
 using FizX.Core.Physics;
 using FizX.Core.Graphics;
-using FizX.Core.World;
+using FizX.Core.Worlds;
 
 namespace FizX.Core;
 
@@ -22,7 +22,7 @@ public class Game
     public int ElapsedFramesSinceStart { get; private set; } = 0;
     public int ElapsedTicksSinceStart { get; private set; } = 0;
 
-    public Game(IGameBoundaries boundaries)
+    public Game(GameBoundaries boundaries)
     {
         _inputManager = boundaries.InputManager;
         _logger = boundaries.Logger;
@@ -46,6 +46,6 @@ public class Game
         
     public void Render()
     {
-        _renderer.Render();
+        _renderer.Render(World);
     }
 }

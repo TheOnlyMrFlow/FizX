@@ -8,7 +8,7 @@ using FluentAssertions;
 
 using System.Linq;
 using FizX.Core.Graphics;
-using FizX.Core.World;
+using FizX.Core.Worlds;
 
 namespace FizX.Core.Test;
 
@@ -20,7 +20,7 @@ public class Game_Test
     private readonly Mock<IInputManager> _inputManagerMock;
     private readonly Mock<IWorldLoader> _worldLoaderMock;
 
-    private readonly Mock<IGameBoundaries> _gameBoundariesMock;
+    private readonly Mock<GameBoundaries> _gameBoundariesMock;
 
     private readonly Mock<IWorld> _worldMock;
 
@@ -39,7 +39,7 @@ public class Game_Test
         _worldMock = new Mock<IWorld>();
         _worldLoaderMock.Setup(wl => wl.LoadWorld()).Returns(_worldMock.Object);
 
-        _gameBoundariesMock = new Mock<IGameBoundaries>();
+        _gameBoundariesMock = new Mock<GameBoundaries>();
         _gameBoundariesMock.Setup(gb => gb.Renderer).Returns(_rendererMock.Object);
         _gameBoundariesMock.Setup(gb => gb.PhysicsEngine).Returns(_physicsSystemMock.Object);
         _gameBoundariesMock.Setup(gb => gb.Logger).Returns(_loggerMock.Object);

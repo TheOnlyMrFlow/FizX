@@ -22,4 +22,9 @@ public class Transform
     public Vector2 Position { get; set; } = Vector2.Zero;
 
     public float Rotation { get; } = 0f;
+
+    public override string ToString()
+    {
+        return $"[Position: {Position}] [Rotation: {Rotation}]";
+    }
 }

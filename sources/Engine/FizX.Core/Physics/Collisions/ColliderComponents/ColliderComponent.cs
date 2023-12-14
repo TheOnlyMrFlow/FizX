@@ -20,10 +20,10 @@ public abstract class ColliderComponent : ActorComponent
     // public abstract void OnCollision();
     public Aabb GetBoundingBox()
     {
-        var actor = GetActor();
-        if (actor is null)
+        
+        if (Actor is null)
             throw new Exception();
                 
-        return Shape.GetBoundingBox(actor.Transform);
+        return Shape.GetBoundingBox(Actor.Transform);
     }
 }

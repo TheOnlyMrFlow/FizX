@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
@@ -19,6 +20,24 @@ public class PolygonShape : Shape
 
     public override Aabb GetBoundingBox(Transform transform)
     {
-        throw new System.NotImplementedException();
+        var minX = 0f;
+        var maxX = 0f;
+        var minY = 0f;
+        var maxY = 0f;
+        
+        foreach (var vertex in Vertices)
+        {
+            minX = Math.Min(minX, vertex.X);
+            maxX = Math.Max(maxX, vertex.X);
+            minY = Math.Min(minY, vertex.Y);
+            maxY = Math.Max(maxY, vertex.Y);
+        }
+        
+        minX += transform.Position.X;
+        maxX += transform.Position.X;
+        minY += transform.Position.Y;
+        maxY += transform.Position.Y;
+
+        return new Aabb(minX, maxX, minY, maxY);
     }
 }

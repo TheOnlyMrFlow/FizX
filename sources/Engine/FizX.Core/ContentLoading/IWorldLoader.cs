@@ -1,4 +1,4 @@
-﻿using FizX.Core.World;
+﻿using FizX.Core.Worlds;
 
 namespace FizX.Core.ContentLoading;
 

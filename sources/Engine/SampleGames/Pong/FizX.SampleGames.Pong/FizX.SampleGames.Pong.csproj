@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\FizX.Core\FizX.Core.csproj" />
+      <ProjectReference Include="..\..\..\FizX.Events\FizX.Events.csproj" />
+      <ProjectReference Include="..\..\..\FizX.Physics\FizX.Physics.csproj" />
+      <ProjectReference Include="..\..\..\FizX.Renderer\FizX.Renderer.csproj" />
+      <ProjectReference Include="..\..\..\FizX.WorldLoader\FizX.WorldLoader.csproj" />
+    </ItemGroup>
+
+</Project>

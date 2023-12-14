@@ -1,6 +1,8 @@
-﻿namespace FizX.Core.Graphics;
+﻿using FizX.Core.Worlds;
+
+namespace FizX.Core.Graphics;
 
 public interface IRenderer
 {
-    void Render();
+    void Render(IWorld world);
 }
