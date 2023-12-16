@@ -6,7 +6,7 @@ namespace FizX.Renderer;
 
 public class ConsoleRenderer : IRenderer
 {
-    public void Render(IWorld world)
+    public void Render(World world)
     {
         Console.Clear();
         foreach (var worldActor in world.Actors)

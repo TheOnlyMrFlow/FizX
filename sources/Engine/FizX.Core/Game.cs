@@ -17,7 +17,7 @@ public class Game
     private readonly IWorldLoader _worldLoader;
     private readonly IEventBus _eventBus;
 
-    public IWorld World { get; private set; }
+    public World World { get; private set; }
 
     public int ElapsedFramesSinceStart { get; private set; } = 0;
     public int ElapsedTicksSinceStart { get; private set; } = 0;

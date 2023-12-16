@@ -4,5 +4,5 @@ namespace FizX.Core.Graphics;
 
 public interface IRenderer
 {
-    void Render(IWorld world);
+    void Render(World world);
 }

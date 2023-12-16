@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-namespace FizX.Renderer.OpenTK;
+namespace FizX.OpenTK;
 
 // This is the camera class as it could be set up after the tutorials on the website.
 // It is important to note there are a few ways you could have set up this camera.

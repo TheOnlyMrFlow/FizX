@@ -1,8 +1,8 @@
-﻿﻿using OpenTK.Graphics.OpenGL4;
-using PixelFormat = OpenTK.Graphics.OpenGL4.PixelFormat;
+﻿using OpenTK.Graphics.OpenGL4;
 using StbImageSharp;
+using PixelFormat = OpenTK.Graphics.OpenGL4.PixelFormat;
 
- namespace FizX.Renderer.OpenTK; 
+namespace FizX.OpenTK; 
 
  // A helper class, much like Shader, meant to simplify loading textures.
  public class Texture

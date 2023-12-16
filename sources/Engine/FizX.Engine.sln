@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.SampleGames.Pong", "Sa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.WorldLoader", "FizX.WorldLoader\FizX.WorldLoader.csproj", "{D885B123-E3B6-471A-9AFD-9B5245FC34C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.Renderer.OpenTK", "Renderer\FizX.Renderer.OpenTK\FizX.Renderer.OpenTK.csproj", "{EED2FED9-F3BA-439C-8220-20A35ADD7B95}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.OpenTK", "Renderer\FizX.OpenTK\FizX.OpenTK.csproj", "{EED2FED9-F3BA-439C-8220-20A35ADD7B95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

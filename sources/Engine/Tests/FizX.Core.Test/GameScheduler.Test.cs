@@ -24,7 +24,7 @@ public class GameScheduler_Test
     private readonly Mock<GameBoundaries> _gameBoundariesMock = new();
 
     private readonly Game _game;
-    private readonly GameScheduler _gameScheduler;
+    private readonly BasicGameHost _basicGameHost;
 
     public GameScheduler_Test()
     {
@@ -36,39 +36,39 @@ public class GameScheduler_Test
 
 
         _game = new Game(_gameBoundariesMock.Object);
-        _gameScheduler = new GameScheduler(_game);
+        _basicGameHost = new BasicGameHost(_game);
     }
 
     [Fact]
     public void DefaultTargetFrameRate_ShouldBe60()
     {
-        _gameScheduler.MaxFrameRate.Should().Be(60);
+        _basicGameHost.MaxFrameRate.Should().Be(60);
     }
         
     [Fact]
     public void TickRate_ShouldBeAConstWorth60()
     {
-        GameScheduler.TickRate.Should().Be(60);
+        BasicGameHost.TickRate.Should().Be(60);
     }
 
     [Fact]
     public void It_ShouldNotBeRunning_BeforeItWasStarted()
     {
-        _gameScheduler.IsRunning.Should().BeFalse();
+        _basicGameHost.IsRunning.Should().BeFalse();
     }
 
     [Fact]
     public void It_ShouldBeRunning_AfterItWasStarted()
     {
-        _gameScheduler.Start();
-        _gameScheduler.IsRunning.Should().BeTrue();
+        _basicGameHost.StartGame();
+        _basicGameHost.IsRunning.Should().BeTrue();
     }
 
     [Fact]
     public void It_ShouldNotBeRunning_AfterItWasStopped()
     {
-        _gameScheduler.Start();
-        _gameScheduler.Stop();
-        _gameScheduler.IsRunning.Should().BeFalse();
+        _basicGameHost.StartGame();
+        _basicGameHost.Stop();
+        _basicGameHost.IsRunning.Should().BeFalse();
     }
 }

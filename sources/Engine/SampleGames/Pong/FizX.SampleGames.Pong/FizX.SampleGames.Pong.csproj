@@ -13,7 +13,7 @@
       <ProjectReference Include="..\..\..\FizX.Physics\FizX.Physics.csproj" />
       <ProjectReference Include="..\..\..\FizX.Renderer.Console\FizX.Renderer.Console.csproj" />
       <ProjectReference Include="..\..\..\FizX.WorldLoader\FizX.WorldLoader.csproj" />
-      <ProjectReference Include="..\..\..\Renderer\FizX.Renderer.OpenTK\FizX.Renderer.OpenTK.csproj" />
+      <ProjectReference Include="..\..\..\Renderer\FizX.OpenTK\FizX.OpenTK.csproj" />
     </ItemGroup>
 
 </Project>

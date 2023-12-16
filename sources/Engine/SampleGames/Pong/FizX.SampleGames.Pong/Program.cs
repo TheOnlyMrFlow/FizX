@@ -4,9 +4,9 @@ using FizX.Core.Geometry.Shapes;
 using FizX.Core.Physics.Collisions.ColliderComponents;
 using FizX.Core.Worlds;
 using FizX.Events;
+using FizX.OpenTK;
 using FizX.Physics;
 using FizX.Renderer;
-using FizX.Renderer.OpenTK;
 using FizX.SampleGames.Pong;
 using FizX.WorldLoader;
 
@@ -34,20 +34,14 @@ wl.SetWorld(world);
 
 #endregion
 
-var openTkRenderer = new OpenTkRenderer();
+var openTkGameHost = new OpenTkGameHost();
 
 var gameBoundaries = new GameBoundaries
 {
-    Renderer = openTkRenderer,
+    Renderer = openTkGameHost.Renderer,
     WorldLoader = wl,
     PhysicsEngine = new PhysicsEngine(),
     EventBus = new EventBus()
 };
 
-var game = new Game(gameBoundaries);
-
-var gameScheduler = new GameScheduler(game);
-
-new Thread(() => gameScheduler.Start(cancellationTokenSource.Token)).Start(); 
-
-openTkRenderer.Init();
+openTkGameHost.HostGame(new Game(gameBoundaries), cancellationTokenSource.Token);

@@ -5,15 +5,13 @@ using System.Threading.Tasks;
 
 namespace FizX.Core;
 
-public class GameScheduler
+public class BasicGameHost : IGameHost
 {
     private const decimal DefaultMaxTickRate = 240;
     private const decimal DefaultMaxFrameRate = 120;
 
     private readonly Stopwatch _stopwatch = new();
     
-    public Game Game { get; }
-        
     public decimal MaxFrameRate { get; private set; }
     public int MinMillisPerFrame { get; private set; }
     
@@ -30,11 +28,10 @@ public class GameScheduler
     private float _nextTickStartsAt = 0f;
     private float _nextRenderStartsAt = 0f;
 
-    public GameScheduler(Game game)
+    public BasicGameHost()
     {
         SetMaxTickRate(DefaultMaxTickRate);
         SetMaxFrameRate(DefaultMaxFrameRate);
-        Game = game;
     }
     
     public void SetMaxTickRate(decimal maxTickRate)
@@ -49,13 +46,10 @@ public class GameScheduler
         MinMillisPerFrame = (int) (1_000 / maxFrameRate);
     }
 
-    public void Start(CancellationToken cancellationToken = default)
+    public void HostGame(Game game, CancellationToken cancellationToken = default)
     {
         IsRunning = true;
         _stopwatch.Start();
-
-        var anyTaskFailedCts = new CancellationTokenSource();
-        var cToken = CancellationTokenSource.CreateLinkedTokenSource(anyTaskFailedCts.Token, cancellationToken).Token;
 
         var nextRenderStartsNotBefore = 0f;
         var nextTickStartsNotBefore = 0f;
@@ -74,13 +68,13 @@ public class GameScheduler
                 var currentTickIsStartingAt = _stopwatch.ElapsedMilliseconds;
                 var deltaMs = currentTickIsStartingAt - lasTickStartedAt;
                 Console.WriteLine("Ticking " + deltaMs);
-                Game.Tick((int) deltaMs);
+                game.Tick((int) deltaMs);
                 lasTickStartedAt = currentTickIsStartingAt;
             }
 
             nextRenderStartsNotBefore = _stopwatch.ElapsedMilliseconds + MinMillisPerFrame;
             Console.WriteLine("Rendering");
-            Game.Render();
+            game.Render();
         }
     }
 

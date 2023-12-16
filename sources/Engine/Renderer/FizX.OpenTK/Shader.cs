@@ -1,7 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
-namespace FizX.Renderer.OpenTK;
+namespace FizX.OpenTK;
 
  // A simple class meant to help create shaders.
  public class Shader
