@@ -11,8 +11,9 @@
       <ProjectReference Include="..\..\..\FizX.Core\FizX.Core.csproj" />
       <ProjectReference Include="..\..\..\FizX.Events\FizX.Events.csproj" />
       <ProjectReference Include="..\..\..\FizX.Physics\FizX.Physics.csproj" />
-      <ProjectReference Include="..\..\..\FizX.Renderer\FizX.Renderer.csproj" />
+      <ProjectReference Include="..\..\..\FizX.Renderer.Console\FizX.Renderer.Console.csproj" />
       <ProjectReference Include="..\..\..\FizX.WorldLoader\FizX.WorldLoader.csproj" />
+      <ProjectReference Include="..\..\..\Renderer\FizX.Renderer.OpenTK\FizX.Renderer.OpenTK.csproj" />
     </ItemGroup>
 
 </Project>

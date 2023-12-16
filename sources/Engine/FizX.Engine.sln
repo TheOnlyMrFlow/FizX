@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.Events.Test", "Tests\F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9853BEE8-2C5C-46A1-8FE2-19FA20F0AF7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.Renderer", "FizX.Renderer\FizX.Renderer.csproj", "{D810783E-7449-4399-A24C-D08D28AC4FD6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.Renderer.Console", "FizX.Renderer.Console\FizX.Renderer.Console.csproj", "{D810783E-7449-4399-A24C-D08D28AC4FD6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.Renderer.Test", "FizX.Renderer.Test\FizX.Renderer.Test.csproj", "{B3801D71-9C08-4807-BD0D-ECAAA99AFA86}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.SampleGames.Pong", "SampleGames\Pong\FizX.SampleGames.Pong\FizX.SampleGames.Pong.csproj", "{73A31EB8-5576-4A4F-9B8D-31E054A894C3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.WorldLoader", "FizX.WorldLoader\FizX.WorldLoader.csproj", "{D885B123-E3B6-471A-9AFD-9B5245FC34C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizX.Renderer.OpenTK", "Renderer\FizX.Renderer.OpenTK\FizX.Renderer.OpenTK.csproj", "{EED2FED9-F3BA-439C-8220-20A35ADD7B95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -157,6 +159,18 @@ Global
 		{D885B123-E3B6-471A-9AFD-9B5245FC34C8}.Release|x64.Build.0 = Release|Any CPU
 		{D885B123-E3B6-471A-9AFD-9B5245FC34C8}.Release|x86.ActiveCfg = Release|Any CPU
 		{D885B123-E3B6-471A-9AFD-9B5245FC34C8}.Release|x86.Build.0 = Release|Any CPU
+		{EED2FED9-F3BA-439C-8220-20A35ADD7B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EED2FED9-F3BA-439C-8220-20A35ADD7B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EED2FED9-F3BA-439C-8220-20A35ADD7B95}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EED2FED9-F3BA-439C-8220-20A35ADD7B95}.Debug|x64.Build.0 = Debug|Any CPU
+		{EED2FED9-F3BA-439C-8220-20A35ADD7B95}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EED2FED9-F3BA-439C-8220-20A35ADD7B95}.Debug|x86.Build.0 = Debug|Any CPU
+		{EED2FED9-F3BA-439C-8220-20A35ADD7B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EED2FED9-F3BA-439C-8220-20A35ADD7B95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EED2FED9-F3BA-439C-8220-20A35ADD7B95}.Release|x64.ActiveCfg = Release|Any CPU
+		{EED2FED9-F3BA-439C-8220-20A35ADD7B95}.Release|x64.Build.0 = Release|Any CPU
+		{EED2FED9-F3BA-439C-8220-20A35ADD7B95}.Release|x86.ActiveCfg = Release|Any CPU
+		{EED2FED9-F3BA-439C-8220-20A35ADD7B95}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

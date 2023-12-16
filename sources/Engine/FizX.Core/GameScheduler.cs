@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,8 +7,8 @@ namespace FizX.Core;
 
 public class GameScheduler
 {
-    private const decimal _defaultTargetTickRate = 120;
-    private const decimal _defaultTargetFrameRate = 1;
+    private const decimal DefaultMaxTickRate = 240;
+    private const decimal DefaultMaxFrameRate = 120;
 
     private readonly Stopwatch _stopwatch = new();
     
@@ -24,10 +22,18 @@ public class GameScheduler
     
     public bool IsRunning { get; set; } = false;
 
+    private float _lastTickStartedAt = 0f;
+    private float _lastTickFinishedAt = 0f;
+    private float _lastRenderStartedAt = 0f;
+    private float _lastRenderFinishedAt = 0f;
+    
+    private float _nextTickStartsAt = 0f;
+    private float _nextRenderStartsAt = 0f;
+
     public GameScheduler(Game game)
     {
-        SetMaxTickRate(_defaultTargetTickRate);
-        SetMaxFrameRate(_defaultTargetFrameRate);
+        SetMaxTickRate(DefaultMaxTickRate);
+        SetMaxFrameRate(DefaultMaxFrameRate);
         Game = game;
     }
     
@@ -43,77 +49,38 @@ public class GameScheduler
         MinMillisPerFrame = (int) (1_000 / maxFrameRate);
     }
 
-    public async Task Start(CancellationToken cancellationToken = default)
+    public void Start(CancellationToken cancellationToken = default)
     {
         IsRunning = true;
-        _stopwatch.Restart();
+        _stopwatch.Start();
 
         var anyTaskFailedCts = new CancellationTokenSource();
         var cToken = CancellationTokenSource.CreateLinkedTokenSource(anyTaskFailedCts.Token, cancellationToken).Token;
 
-        async Task TickForeverSafe()
-        {
-            try
-            {
-                await TickForever(cToken).ConfigureAwait(false);
-            }
-            catch (Exception e)
-            {
-                await anyTaskFailedCts.CancelAsync();
-                throw;
-            }
-        }
-        
-        async Task RenderForeverSafe()
-        {
-            try
-            {
-                await RenderForever(cToken).ConfigureAwait(false);
-            }
-            catch (Exception e)
-            {
-                await anyTaskFailedCts.CancelAsync();
-                throw;
-            }
-        }
-        
-        await Task.WhenAll(TickForeverSafe(), RenderForeverSafe()).ConfigureAwait(false);
-    }
-    
-    protected async Task TickForever(CancellationToken cancellationToken = default)
-    {
-        var lastTickDurationMs = 0;
+        var nextRenderStartsNotBefore = 0f;
+        var nextTickStartsNotBefore = 0f;
+        var lasTickStartedAt = 0f;
         while (!cancellationToken.IsCancellationRequested)
         {
-            var elapsedBeforeTick = _stopwatch.ElapsedMilliseconds;
-            
-            Game.Tick(lastTickDurationMs);
-            
-            lastTickDurationMs = (int) (_stopwatch.ElapsedMilliseconds - elapsedBeforeTick);
-            
-            var delayMs = MinMillisPerTick - lastTickDurationMs;
-            if (delayMs > 0 && !cancellationToken.IsCancellationRequested)
+            while (_stopwatch.ElapsedMilliseconds < nextRenderStartsNotBefore)
             {
-                await Task.Delay(delayMs, cancellationToken);
+                if (_stopwatch.ElapsedMilliseconds < nextTickStartsNotBefore)
+                {
+                    continue;
+                }
+                
+                nextTickStartsNotBefore = _stopwatch.ElapsedMilliseconds + MinMillisPerTick;
+                
+                var currentTickIsStartingAt = _stopwatch.ElapsedMilliseconds;
+                var deltaMs = currentTickIsStartingAt - lasTickStartedAt;
+                Console.WriteLine("Ticking " + deltaMs);
+                Game.Tick((int) deltaMs);
+                lasTickStartedAt = currentTickIsStartingAt;
             }
-        }
-    }
-    
-    protected async Task RenderForever(CancellationToken cancellationToken = default)
-    {
-        while (!cancellationToken.IsCancellationRequested)
-        {
-            var elapsedBeforeRender = _stopwatch.ElapsedMilliseconds;
-            
+
+            nextRenderStartsNotBefore = _stopwatch.ElapsedMilliseconds + MinMillisPerFrame;
+            Console.WriteLine("Rendering");
             Game.Render();
-            
-            var lastRenderDurationMs = (int) (_stopwatch.ElapsedMilliseconds - elapsedBeforeRender);
-            
-            var delayMs = MinMillisPerFrame - lastRenderDurationMs;
-            if (delayMs > 0 && !cancellationToken.IsCancellationRequested)
-            {
-                await Task.Delay(delayMs, cancellationToken);
-            }
         }
     }
 
