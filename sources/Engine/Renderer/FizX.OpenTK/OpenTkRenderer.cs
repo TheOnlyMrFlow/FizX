@@ -16,14 +16,22 @@ public class OpenTkRenderer : IRenderer
     
     private readonly float[] _vertices =
     {
-        -0.5f, -0.5f, 0.0f, // Bottom-left vertex
-        0.5f, -0.5f, 0.0f, // Bottom-right vertex
-        0.0f,  0.5f, 0.0f  // Top vertex
+        -0.5f, -0.5f, 
+        0.5f, -0.5f,
+        0.5f,  0.5f,
+        -0.5f, 0.5f
+    };
+    
+    private readonly uint[] _verticesToDraw =
+    {
+        0, 1, 2, 2, 3, 0
     };
     
     private int _vertexBufferObject;
 
     private int _vertexArrayObject;
+    
+    private int _indexBufferObject;
     
     private Shader _shader;
     
@@ -40,14 +48,18 @@ public class OpenTkRenderer : IRenderer
        
         GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
         
-        GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Length * sizeof(float), _vertices, BufferUsageHint.StreamDraw);
+        GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Length * sizeof(float), _vertices, BufferUsageHint.StaticDraw);
         
         _vertexArrayObject = GL.GenVertexArray();
         GL.BindVertexArray(_vertexArrayObject);
         
-        GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
-
+        GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, 2 * sizeof(float), 0);
         GL.EnableVertexAttribArray(0);
+
+        _indexBufferObject = GL.GenBuffer();
+        GL.BindBuffer(BufferTarget.ElementArrayBuffer, _indexBufferObject);
+        GL.BufferData(BufferTarget.ElementArrayBuffer, _verticesToDraw.Length * sizeof(uint), _verticesToDraw, BufferUsageHint.StaticDraw);
+        
         
         _shader = new Shader("Shaders/shader.vert", "Shaders/shader.frag");
 
@@ -66,15 +78,13 @@ public class OpenTkRenderer : IRenderer
         GL.Clear(ClearBufferMask.ColorBufferBit);
         
         _shader.Use();
-
-        // Bind the VAO
-        GL.BindVertexArray(_vertexArrayObject);
         
         _vertices[0] = actor1.Position.X / 10000;
         _vertices[1] = actor1.Position.Y / 10000;
-        GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Length * sizeof(float), _vertices, BufferUsageHint.StreamDraw); 
+        GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Length * sizeof(float), _vertices, BufferUsageHint.DynamicDraw); 
         
-        GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+        //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+        GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, default);
         
         _window.SwapBuffers();
     }
