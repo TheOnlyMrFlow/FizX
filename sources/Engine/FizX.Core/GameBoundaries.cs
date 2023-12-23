@@ -10,7 +10,7 @@ namespace FizX.Core;
 public class GameBoundaries
 {
     public ILogger Logger { get; init; }
-    public IRenderer Renderer { get; init; }
+    public IRenderingEngine RenderingEngine { get; init; }
     public IInputManager InputManager { get; init; }
     public IWorldLoader WorldLoader { get; init; }
     public IPhysicsEngine PhysicsEngine { get; init; }

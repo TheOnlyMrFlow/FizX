@@ -14,7 +14,7 @@ namespace FizX.Core.Test;
 
 public class Game_Test
 {
-    private readonly Mock<IRenderer> _rendererMock;
+    private readonly Mock<IRenderingEngine> _rendererMock;
     private readonly Mock<IPhysicsEngine> _physicsSystemMock;
     private readonly Mock<ILogger> _loggerMock;        
     private readonly Mock<IInputManager> _inputManagerMock;
@@ -30,7 +30,7 @@ public class Game_Test
 
     public Game_Test()
     {
-        _rendererMock = new Mock<IRenderer>();
+        _rendererMock = new Mock<IRenderingEngine>();
         _physicsSystemMock = new Mock<IPhysicsEngine>();
         _loggerMock = new Mock<ILogger>();
         _inputManagerMock = new Mock<IInputManager>();
@@ -40,7 +40,7 @@ public class Game_Test
         _worldLoaderMock.Setup(wl => wl.LoadWorld()).Returns(_worldMock.Object);
 
         _gameBoundariesMock = new Mock<GameBoundaries>();
-        _gameBoundariesMock.Setup(gb => gb.Renderer).Returns(_rendererMock.Object);
+        _gameBoundariesMock.Setup(gb => gb.RenderingEngine).Returns(_rendererMock.Object);
         _gameBoundariesMock.Setup(gb => gb.PhysicsEngine).Returns(_physicsSystemMock.Object);
         _gameBoundariesMock.Setup(gb => gb.Logger).Returns(_loggerMock.Object);
         _gameBoundariesMock.Setup(gb => gb.InputManager).Returns(_inputManagerMock.Object);
@@ -70,11 +70,11 @@ public class Game_Test
     public  void It_ShouldCallRenderer_AtEveryRendererCall()
     {
         _game.Render();
-        _rendererMock.Verify(r => r.Render(), Times.Once);
+        _rendererMock.Verify(r => r.RenderWorld(), Times.Once);
         _game.Render();
-        _rendererMock.Verify(r => r.Render(), Times.Exactly(2));
+        _rendererMock.Verify(r => r.RenderWorld(), Times.Exactly(2));
         _game.Render();
-        _rendererMock.Verify(r => r.Render(), Times.Exactly(3));
+        _rendererMock.Verify(r => r.RenderWorld(), Times.Exactly(3));
     }
 
     [Fact]

@@ -4,9 +4,9 @@ using FizX.Core.Worlds;
 
 namespace FizX.Renderer;
 
-public class ConsoleRenderer : IRenderer
+public class ConsoleRenderingEngine : IRenderingEngine
 {
-    public void Render(World world)
+    public void RenderWorld(World world)
     {
         Console.Clear();
         foreach (var worldActor in world.Actors)

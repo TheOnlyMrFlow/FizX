@@ -38,7 +38,7 @@ var openTkGameHost = new OpenTkGameHost();
 
 var gameBoundaries = new GameBoundaries
 {
-    Renderer = openTkGameHost.Renderer,
+    RenderingEngine = openTkGameHost.RenderingEngine,
     WorldLoader = wl,
     PhysicsEngine = new PhysicsEngine(),
     EventBus = new EventBus()

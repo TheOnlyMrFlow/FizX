@@ -13,7 +13,7 @@ public class Game
     private readonly IInputManager _inputManager;
     private readonly ILogger _logger;
     private readonly IPhysicsEngine _physicsEngine;
-    private readonly IRenderer _renderer;
+    private readonly IRenderingEngine _renderingEngine;
     private readonly IWorldLoader _worldLoader;
     private readonly IEventBus _eventBus;
 
@@ -27,7 +27,7 @@ public class Game
         _inputManager = boundaries.InputManager;
         _logger = boundaries.Logger;
         _physicsEngine = boundaries.PhysicsEngine;
-        _renderer = boundaries.Renderer;
+        _renderingEngine = boundaries.RenderingEngine;
         _worldLoader = boundaries.WorldLoader;
         _eventBus = boundaries.EventBus;
 
@@ -46,6 +46,6 @@ public class Game
         
     public void Render()
     {
-        _renderer.Render(World);
+        _renderingEngine.RenderWorld(World);
     }
 }
