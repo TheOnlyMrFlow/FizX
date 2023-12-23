@@ -3,6 +3,7 @@ using System.Numerics;
 using FizX.Core.Graphics;
 using FizX.Core.Worlds;
 using FizX.Renderer;
+using ImGuiNET;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Graphics.OpenGL4;
@@ -17,12 +18,14 @@ public class OpenTkRenderingEngine : IRenderingEngine
     private readonly ConsoleRenderingEngine _consoleRenderingEngine = new();
     private readonly GameWindow _window;
     
+    private readonly ImGuiController _imgUicontroller;
+    
     private readonly float[] _vertices =
     {
-        100f, 100f, 0.0f, 0.0f, 
-        200f, 100f, 1.0f, 0.0f,
-        200f,  200f, 1.0f, 1.0f,
-        100f, 200f, 0.0f, 1.0f
+        -50f, -50f, 0.0f, 0.0f, 
+        50f, -50f, 1.0f, 0.0f,
+        50f,  50f, 1.0f, 1.0f,
+        -50f, 50f, 0.0f, 1.0f
     };
     
     private readonly uint[] _verticesToDraw =
@@ -43,6 +46,8 @@ public class OpenTkRenderingEngine : IRenderingEngine
     public OpenTkRenderingEngine(GameWindow window)
     {
         _window = window;
+        _imgUicontroller = new ImGuiController(window.ClientSize.X, window.ClientSize.Y);
+
     }
 
     public void Load()
@@ -69,20 +74,13 @@ public class OpenTkRenderingEngine : IRenderingEngine
         
         _shader = new Shader("Shaders/shader.vert", "Shaders/shader.frag");
         
-        var proj = Matrix4.CreateOrthographicOffCenter(0, 960, 0, 540f, -1f, 1f);
-        var view = Matrix4.CreateTranslation(-100, 0, 0);
-        var model = Matrix4.CreateTranslation(200, 200, 0);
-
-        var mvp = model * view * proj;
-        
-        _shader.SetUniformMatrix4("u_MVP", mvp);
-        
         _shader.Use();
         
         var texture = new Texture("Resources/cat.png");
         texture.Use(0);
         
         _shader.SetUniformInt("u_Texture", 0);
+        
     }
 
     public void RenderWorld(World world)
@@ -96,13 +94,44 @@ public class OpenTkRenderingEngine : IRenderingEngine
         
         _shader.Use();
         _shader.SetUniformVec4("u_Color", new Vector4(0.5f, 1, 1, 1));
-        _renderer.Draw(ref _vertexArray, ref _indexBuffer, ref _shader);
+        
+        var proj = Matrix4.CreateOrthographicOffCenter(0, 960, 0, 540f, -1f, 1f);
+        var view = Matrix4.CreateTranslation(0, 0, 0);
+
+        {
+            var model = Matrix4.CreateTranslation(0, 0, 0);
+            var mvp = model * view * proj;
+            _shader.SetUniformMatrix4("u_MVP", mvp);
+            _renderer.Draw(ref _vertexArray, ref _indexBuffer, ref _shader);
+        }
+
+        {
+            var model = Matrix4.CreateTranslation(100, 0, 0);
+            var mvp = model * view * proj;
+            _shader.SetUniformMatrix4("u_MVP", mvp);
+            _renderer.Draw(ref _vertexArray, ref _indexBuffer, ref _shader);
+        }
         
         // _vertices[0] = actor1.Position.X / 10000;
         // _vertices[1] = actor1.Position.Y / 10000;
         // GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Length * sizeof(float), _vertices, BufferUsageHint.DynamicDraw);
         
         //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+        
+        
+        //ImGui.DockSpaceOverViewport();
+
+        //ImGui.ShowDemoWindow();
+        
+        _imgUicontroller.Update(_window, (float)0.16f);
+
+        ImGui.Text("Hello world");
+        ImGui.Text("Hello world");
+        bool toto = true;
+        ImGui.Checkbox("Toto", ref toto);
+        _imgUicontroller.Render();
+
+        ImGuiController.CheckGLError("End of frame");
         
         _window.SwapBuffers();
     }
@@ -120,6 +149,8 @@ public class OpenTkRenderingEngine : IRenderingEngine
     public void OnResize(ResizeEventArgs e) 
     {
         GL.Viewport(0, 0, _window.Size.X, _window.Size.Y);
+        _imgUicontroller.WindowResized(_window.ClientSize.X, _window.ClientSize.Y);
+
     }
     
     public void OnUnload()
