@@ -6,5 +6,5 @@ namespace FizX.Core.Worlds;
 public interface IWorld
 {
     IEnumerable<Actor> Actors { get; }
-    void Tick(float deltaMs);
+    void Tick(FrameInfo frame);
 }

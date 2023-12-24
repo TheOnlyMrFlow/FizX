@@ -10,15 +10,24 @@ public class TimeLine
 {
     public Stack<TimeLinePastState> _pastStates = new Stack<TimeLinePastState>();
     
+    private readonly List<Actor> _actors = new List<Actor>();
+    public IEnumerable<Actor> Actors => _actors;
+
+    public void AddActor(Actor actor) => _actors.Add(actor);
+    
     public float TimeScale { get; private set; } = 1f;
     
-    public bool RewindEnabled { get; private set; } = false;
+    public bool IsRecording { get; private set; } = false;
 
-    public void EnableRewind() => RewindEnabled = true;
+    public void StartRecording() => IsRecording = true;
+    
+    public bool IsRewinding { get; private set; } = false;
+
+    public void StartRewinding() => IsRewinding = true;
     
     public void SetTimeScale(float scale)
     {
-        if (scale < 0f && !RewindEnabled)
+        if (scale < 0f && !IsRecording)
         {
             throw new FizXRuntimeException();
         }
@@ -28,13 +37,12 @@ public class TimeLine
 
     public void SaveActorStateAtFrame(Actor actor, FrameInfo frame)
     {
-        if (!RewindEnabled)
+        if (!IsRecording)
         {
             throw new FizXRuntimeException();
         }
 
-        var lastPastState = _pastStates.Peek();
-        if (lastPastState.Frame.Index != frame.Index)
+        if (!_pastStates.TryPeek(out var lastPastState) || lastPastState.Frame.Index != frame.Index)
         {
             lastPastState = new TimeLinePastState()
             {
@@ -57,7 +65,7 @@ public class TimeLinePastState
     {
         ActorsPastStates[actor.Id] = new ActorStateSnapshot()
         {
-            ActorId = actor.Id,
+            Actor = actor,
             ActorTransform = actor.Transform
         };
     }
@@ -65,7 +73,7 @@ public class TimeLinePastState
 
 public class ActorStateSnapshot
 {
-    public int ActorId { get; set; }
+    public Actor Actor { get; set; }
     
     public Transform ActorTransform { get; set; }
 }

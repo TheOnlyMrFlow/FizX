@@ -6,7 +6,7 @@ public abstract class ActorComponent : ITickable
 {
     public Actor? Actor { get; internal set; }
 
-    public virtual void Tick(float deltaMs) { }
+    public virtual void Tick(FrameInfo frame) { }
 
     public override string ToString()
     {

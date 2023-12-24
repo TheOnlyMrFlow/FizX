@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FizX.Core;
 using FizX.Core.Physics;
 using FizX.Core.Physics.Collisions.ColliderComponents;
 
@@ -9,7 +10,7 @@ public class PhysicsEngine : IPhysicsEngine
 {
     private readonly Dictionary<string, CollisionLayer> _collisionLayers = new ();
 
-    public void Tick(float deltaMs)
+    public void Tick(FrameInfo frameInfo)
     {
         // todo
     }

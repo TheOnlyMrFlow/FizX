@@ -21,4 +21,12 @@ public static class Time
     private static readonly TimeLine[] _timeLines = Enumerable.Repeat(() => new TimeLine(), 10).Select(x => x()).ToArray();
 
     public static TimeLine GetTimeLine(TimeLineIndex index) => _timeLines[(int)index];
+
+    public static IEnumerable<TimeLine> GetAllTimeLines()
+    {
+        for (var i = TimeLineIndex.TimeLine0; i <= TimeLineIndex.TimeLine9; i++)
+        {
+            yield return GetTimeLine(i);
+        }
+    }
 }

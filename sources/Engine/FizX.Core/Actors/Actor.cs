@@ -47,10 +47,10 @@ public class Actor
         component.Actor = null;
     }
 
-    internal void Tick(float deltaMs)
+    internal void Tick(FrameInfo frame)
     {
         foreach (var component in _components) 
-            component.Tick(deltaMs);
+            component.Tick(frame);
     }
 
     internal void SetTimeLineIndex(TimeLineIndex timeLineIndex)

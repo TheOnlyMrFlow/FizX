@@ -2,5 +2,5 @@
 
 public interface ITickable
 {
-    void Tick(float deltaMs);
+    void Tick(FrameInfo frame);
 }

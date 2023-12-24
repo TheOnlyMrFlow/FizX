@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using FizX.Core.Actors;
 using FizX.Core.Timing;
 
@@ -6,31 +7,37 @@ namespace FizX.Core.Worlds;
 
 public class World : IWorld
 {
-    private readonly List<Actor> _actors = new List<Actor>();
-    public IEnumerable<Actor> Actors => _actors;
+    public IEnumerable<Actor> Actors => Time.GetAllTimeLines().SelectMany(t => t.Actors);
 
     public void Tick(FrameInfo frame)
     {
-        foreach (var actor in _actors)
+        foreach (var timeLine in Time.GetAllTimeLines())
         {
-            var timeLine = Time.GetTimeLine(actor.TimeLineIndex);
-            actor.Tick(frame.DeltaTime * timeLine.TimeScale);
-            if (timeLine.RewindEnabled)
-                timeLine.SaveActorStateAtFrame(actor, frame);
-        }
-
-        for (var i = TimeLineIndex.TimeLine0; i < TimeLineIndex.TimeLine9; i++)
-        {
-            var timeLine = Time.GetTimeLine(0);
-            if (timeLine.RewindEnabled)
+            if (timeLine.IsRewinding)
             {
-                timeLine.
+                if (!timeLine._pastStates.TryPop(out var pastState))
+                {
+                    return;
+                }
+                foreach (var actorPastState in pastState.ActorsPastStates.Values)
+                {
+                    actorPastState.Actor.SetTransform(actorPastState.ActorTransform);
+                }
+
+                return;
+            }
+            
+            foreach (var actor in timeLine.Actors)
+            {
+                actor.Tick(frame);
+                if (timeLine.IsRecording)
+                    timeLine.SaveActorStateAtFrame(actor, frame);
             }
         }
     }
 
-    public void AddActor(Actor actor)
+    public void AddActor(Actor actor, TimeLineIndex timeLineIndex = TimeLineIndex.TimeLine0)
     {
-        _actors.Add(actor);
+        Time.GetTimeLine(timeLineIndex).AddActor(actor);
     }
 }
