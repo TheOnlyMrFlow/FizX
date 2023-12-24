@@ -9,7 +9,7 @@ public class PhysicsEngine : IPhysicsEngine
 {
     private readonly Dictionary<string, CollisionLayer> _collisionLayers = new ();
 
-    public void Tick(decimal deltaMs)
+    public void Tick(float deltaMs)
     {
         // todo
     }

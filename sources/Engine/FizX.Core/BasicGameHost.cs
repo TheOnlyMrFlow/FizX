@@ -54,6 +54,7 @@ public class BasicGameHost : IGameHost
         var nextRenderStartsNotBefore = 0f;
         var nextTickStartsNotBefore = 0f;
         var lasTickStartedAt = 0f;
+        ulong frameIndex = 0;
         while (!cancellationToken.IsCancellationRequested)
         {
             while (_stopwatch.ElapsedMilliseconds < nextRenderStartsNotBefore)
@@ -68,8 +69,14 @@ public class BasicGameHost : IGameHost
                 var currentTickIsStartingAt = _stopwatch.ElapsedMilliseconds;
                 var deltaMs = currentTickIsStartingAt - lasTickStartedAt;
                 Console.WriteLine("Ticking " + deltaMs);
-                game.Tick((int) deltaMs);
+                game.Tick(new FrameInfo
+                {
+                    Index = frameIndex,
+                    Elapsed = _stopwatch.ElapsedMilliseconds,
+                    DeltaTime = deltaMs,
+                });
                 lasTickStartedAt = currentTickIsStartingAt;
+                frameIndex++;
             }
 
             nextRenderStartsNotBefore = _stopwatch.ElapsedMilliseconds + MinMillisPerFrame;

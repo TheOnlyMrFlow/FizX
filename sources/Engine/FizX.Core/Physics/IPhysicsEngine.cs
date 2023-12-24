@@ -4,7 +4,7 @@ namespace FizX.Core.Physics;
 
 public interface IPhysicsEngine
 {
-    void Tick(decimal deltaMs);
+    void Tick(float deltaMs);
 
     void RegisterCollider(ColliderComponent colliderComponent, string layer);
 }

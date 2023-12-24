@@ -1,4 +1,5 @@
-﻿using FizX.Core;
+﻿using System.Diagnostics;
+using FizX.Core;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
@@ -8,6 +9,8 @@ namespace FizX.OpenTK;
 public class OpenTkGameHost : IGameHost
 {
     private GameWindow _window;
+    private ulong _frameIndex = 0;
+    private Stopwatch _stopWatch = new ();
     
     public OpenTkRenderingEngine RenderingEngine { get; protected set; }
 
@@ -31,15 +34,27 @@ public class OpenTkGameHost : IGameHost
 
     public void HostGame(Game game, CancellationToken cancellationToken)
     {
-        _window.Load += RenderingEngine.Load;
+        _window.Load += () =>
+        {
+            _stopWatch.Restart();
+            RenderingEngine.Load();
+        };
 
         _window.Resize += RenderingEngine.OnResize;
         
         _window.UpdateFrame += e =>
         {
             RenderingEngine.OnUpdateFrame(e);
-            
-            game.Tick((int) (e.Time * 1000f));
+
+            var frameInfo = new FrameInfo
+            {
+                Index = _frameIndex,
+                Elapsed = _stopWatch.ElapsedMilliseconds,
+                DeltaTime = (float) e.Time * 1000f,
+            };
+            game.Tick(frameInfo);
+
+            _frameIndex++;
         };
 
         _window.RenderFrame += e =>

@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Threading;
 using FizX.Core.Actors.ActorComponents;
 using FizX.Core.Geometry;
+using FizX.Core.Timing;
 
 namespace FizX.Core.Actors;
 
 public class Actor
 {
-    public int Id => 0;
+    private static int _lastRandomId = -1;
+    
+    public static int NextRandomId() => Interlocked.Increment(ref _lastRandomId);
+    
+    public readonly int Id = NextRandomId();
+
+    public TimeLineIndex TimeLineIndex { get; private set; } = TimeLineIndex.TimeLine0;
 
     public Transform Transform { get; private set; } = new();
 
@@ -39,10 +47,15 @@ public class Actor
         component.Actor = null;
     }
 
-    internal void Tick(int deltaMs)
+    internal void Tick(float deltaMs)
     {
         foreach (var component in _components) 
             component.Tick(deltaMs);
+    }
+
+    internal void SetTimeLineIndex(TimeLineIndex timeLineIndex)
+    {
+        TimeLineIndex = timeLineIndex;
     }
 
     public override string ToString()

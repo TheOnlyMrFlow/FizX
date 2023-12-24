@@ -4,6 +4,7 @@ using FizX.Core.Input;
 using FizX.Core.Logging;
 using FizX.Core.Physics;
 using FizX.Core.Graphics;
+using FizX.Core.Timing;
 using FizX.Core.Worlds;
 
 namespace FizX.Core;
@@ -34,12 +35,11 @@ public class Game
         World = _worldLoader.LoadWorld();
     }
 
-
-    public void Tick(int deltaMs)
+    public void Tick(FrameInfo frame)
     {
-        World.Tick(deltaMs);
+        World.Tick(frame);
 
-        _physicsEngine.Tick(deltaMs);
+        _physicsEngine.Tick(frame);
             
         ElapsedTicksSinceStart += 1;
     }
