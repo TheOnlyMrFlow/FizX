@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FizX.Core.Actors;
 using FizX.Core.Timing;
@@ -15,16 +16,17 @@ public class World : IWorld
         {
             if (timeLine.IsRewinding)
             {
-                if (!timeLine._pastStates.TryPop(out var pastState))
+                if (!timeLine.PastStates.TryPop(out var pastState))
                 {
-                    return;
+                    timeLine.StopRewinding();
+                    continue;
                 }
                 foreach (var actorPastState in pastState.ActorsPastStates.Values)
                 {
                     actorPastState.Actor.SetTransform(actorPastState.ActorTransform);
                 }
 
-                return;
+                continue;
             }
             
             foreach (var actor in timeLine.Actors)

@@ -2,6 +2,7 @@
 using FizX.Core.Actors;
 using FizX.Core.Geometry.Shapes;
 using FizX.Core.Physics.Collisions.ColliderComponents;
+using FizX.Core.Timing;
 using FizX.Core.Worlds;
 using FizX.Events;
 using FizX.OpenTK;
@@ -22,12 +23,14 @@ Console.CancelKeyPress += (sender, eventArgs) => {
 
 #region SetWorld
 var world = new World();
-world.AddActor(new Actor());
+var actor1 = new Actor();
+actor1.AttachComponent(new Actor1Component());
+world.AddActor(actor1, TimeLineIndex.TimeLine1);
 
 var actor2 = new Actor();
 actor2.AttachComponent(new BoxColliderComponent(new RectangleShape(30, 20)));
-actor2.AttachComponent(new MyCustomComponent());
-world.AddActor(actor2);
+actor2.AttachComponent(new Actor2Component());
+world.AddActor(actor2, TimeLineIndex.TimeLine0);
 
 var wl = new WorldLoader();
 wl.SetWorld(world);

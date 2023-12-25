@@ -8,7 +8,7 @@ namespace FizX.Core.Timing;
 
 public class TimeLine
 {
-    public Stack<TimeLinePastState> _pastStates = new Stack<TimeLinePastState>();
+    public readonly Stack<TimeLinePastState> PastStates = new Stack<TimeLinePastState>();
     
     private readonly List<Actor> _actors = new List<Actor>();
     public IEnumerable<Actor> Actors => _actors;
@@ -24,6 +24,8 @@ public class TimeLine
     public bool IsRewinding { get; private set; } = false;
 
     public void StartRewinding() => IsRewinding = true;
+
+    public void StopRewinding() => IsRewinding = false;
     
     public void SetTimeScale(float scale)
     {
@@ -42,13 +44,13 @@ public class TimeLine
             throw new FizXRuntimeException();
         }
 
-        if (!_pastStates.TryPeek(out var lastPastState) || lastPastState.Frame.Index != frame.Index)
+        if (!PastStates.TryPeek(out var lastPastState) || lastPastState.Frame.Index != frame.Index)
         {
             lastPastState = new TimeLinePastState()
             {
                 Frame = frame
             };
-            _pastStates.Push(lastPastState);
+            PastStates.Push(lastPastState);
         }
         
         lastPastState.AddActor(actor);

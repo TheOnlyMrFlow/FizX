@@ -97,16 +97,11 @@ public class OpenTkRenderingEngine : IRenderingEngine
         
         var proj = Matrix4.CreateOrthographicOffCenter(0, 960, 0, 540f, -1f, 1f);
         var view = Matrix4.CreateTranslation(0, 0, 0);
-
+        
+        foreach (var actor in world.Actors)
         {
-            var model = Matrix4.CreateTranslation(0, 0, 0);
-            var mvp = model * view * proj;
-            _shader.SetUniformMatrix4("u_MVP", mvp);
-            _renderer.Draw(ref _vertexArray, ref _indexBuffer, ref _shader);
-        }
-
-        {
-            var model = Matrix4.CreateTranslation(100, 0, 0);
+            var transform = actor.Transform;
+            var model = Matrix4.CreateTranslation(transform.Position.X, transform.Position.Y, 0);
             var mvp = model * view * proj;
             _shader.SetUniformMatrix4("u_MVP", mvp);
             _renderer.Draw(ref _vertexArray, ref _indexBuffer, ref _shader);

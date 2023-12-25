@@ -7,21 +7,21 @@ using FizX.Core.Timing;
 
 namespace FizX.SampleGames.Pong;
 
-public class MyCustomComponent : ActorComponent
+public class Actor2Component : ActorComponent
 {
     public override void Tick(FrameInfo frame)
     {
-        var timeLine = Time.GetTimeLine(TimeLineIndex.TimeLine0); 
+        var timeLine = Time.GetTimeLine(TimeLineIndex.TimeLine0);
         if (!timeLine.IsRecording)
         {
             timeLine.StartRecording();
         }
-
-        if (frame.Index > 300)
+        
+        if (Actor!.Transform.Position.X > 50)
         {
             timeLine.StartRewinding();
         }
         
-        Actor!.SetPosition(Actor.Position + Vector2.UnitX);
+        Actor!.SetPosition(Actor.Position + (frame.DeltaTimeMs / 1000f) * 10f * Vector2.UnitX);
     }
 }

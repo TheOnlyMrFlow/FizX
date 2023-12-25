@@ -72,8 +72,8 @@ public class BasicGameHost : IGameHost
                 game.Tick(new FrameInfo
                 {
                     Index = frameIndex,
-                    Elapsed = _stopwatch.ElapsedMilliseconds,
-                    DeltaTime = deltaMs,
+                    ElapsedMs = _stopwatch.ElapsedMilliseconds,
+                    DeltaTimeMs = deltaMs,
                 });
                 lasTickStartedAt = currentTickIsStartingAt;
                 frameIndex++;

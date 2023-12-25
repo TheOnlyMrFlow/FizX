@@ -2,9 +2,9 @@
 
 public struct FrameInfo
 {
-    public float DeltaTime { get; set; }
+    public float DeltaTimeMs { get; set; }
     
-    public float Elapsed { get; set; }
+    public float ElapsedMs { get; set; }
     
     public ulong Index { get; set; }
 

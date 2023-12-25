@@ -44,13 +44,14 @@ public class OpenTkGameHost : IGameHost
         
         _window.UpdateFrame += e =>
         {
+            Console.WriteLine(e.Time);
             RenderingEngine.OnUpdateFrame(e);
 
             var frameInfo = new FrameInfo
             {
                 Index = _frameIndex,
-                Elapsed = _stopWatch.ElapsedMilliseconds,
-                DeltaTime = (float) e.Time * 1000f,
+                ElapsedMs = _stopWatch.ElapsedMilliseconds,
+                DeltaTimeMs = (float) e.Time * 1000f,
             };
             game.Tick(frameInfo);
 
