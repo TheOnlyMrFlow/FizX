@@ -4,19 +4,21 @@ using FizX.Core.Input;
 using FizX.Core.Logging;
 using FizX.Core.Physics;
 using FizX.Core.Graphics;
-using FizX.Core.Timing;
 using FizX.Core.Worlds;
 
 namespace FizX.Core;
 
 public class Game
 {
-    private readonly IInputManager _inputManager;
+    public static Game Instance { get; private set; }
+
+    public IInputManager InputManager { get; }
+    public IEventBus EventBus { get; }
+
     private readonly ILogger _logger;
     private readonly IPhysicsEngine _physicsEngine;
     private readonly IRenderingEngine _renderingEngine;
     private readonly IWorldLoader _worldLoader;
-    private readonly IEventBus _eventBus;
 
     public World World { get; private set; }
 
@@ -25,16 +27,23 @@ public class Game
 
     public Game(GameBoundaries boundaries)
     {
-        _inputManager = boundaries.InputManager;
-        _logger = boundaries.Logger;
-        _physicsEngine = boundaries.PhysicsEngine;
-        _renderingEngine = boundaries.RenderingEngine;
-        _worldLoader = boundaries.WorldLoader;
-        _eventBus = boundaries.EventBus;
+        InputManager = boundaries.InputManagerFactory();
+        _logger = boundaries.LoggerFactory();
+        _physicsEngine = boundaries.PhysicsEngineFactory();
+        _renderingEngine = boundaries.RenderingEngineFactory();
+        _worldLoader = boundaries.WorldLoaderFactory();
+        EventBus = boundaries.EventBusFactory();
 
         World = _worldLoader.LoadWorld();
+
+        Instance = this;
     }
 
+    public void BeforeStart()
+    {
+        InputManager.BeforeGameStarts();
+    }
+    
     public void Tick(FrameInfo frame)
     {
         World.Tick(frame);
@@ -42,10 +51,13 @@ public class Game
         _physicsEngine.Tick(frame);
             
         ElapsedTicksSinceStart += 1;
+        
+        InputManager.OnTickEnded();
     }
         
     public void Render()
     {
         _renderingEngine.RenderWorld(World);
     }
+
 }

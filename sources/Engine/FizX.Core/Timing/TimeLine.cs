@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using FizX.Core.Actors;
 using FizX.Core.Exceptions;
 using FizX.Core.Geometry;
@@ -8,24 +9,33 @@ namespace FizX.Core.Timing;
 
 public class TimeLine
 {
+    public TimeLine(TimeLineIndex index)
+    {
+        Index = index;
+    }
+    
+    public TimeLineIndex Index { get; }
+    
     public readonly Stack<TimeLinePastState> PastStates = new Stack<TimeLinePastState>();
     
-    private readonly List<Actor> _actors = new List<Actor>();
-    public IEnumerable<Actor> Actors => _actors;
+    internal readonly HashSet<Actor> Actors = [];
+    public ImmutableHashSet<Actor> GetActors() => Actors.ToImmutableHashSet();
 
-    public void AddActor(Actor actor) => _actors.Add(actor);
-    
     public float TimeScale { get; private set; } = 1f;
     
     public bool IsRecording { get; private set; } = false;
 
     public void StartRecording() => IsRecording = true;
-    
-    public bool IsRewinding { get; private set; } = false;
 
-    public void StartRewinding() => IsRewinding = true;
+    public float StartedRewindingAt { get; private set; } = -1f;
 
-    public void StopRewinding() => IsRewinding = false;
+    public bool IsRewinding => StartedRewindingAt >= 0f;
+
+    public float AheadMs { get; internal set; } = 0f;
+
+    public void StartRewinding(FrameInfo frame) => StartedRewindingAt = frame.ElapsedMs;
+
+    public void StopRewinding() => StartedRewindingAt = -1f;
     
     public void SetTimeScale(float scale)
     {
@@ -41,7 +51,12 @@ public class TimeLine
     {
         if (!IsRecording)
         {
-            throw new FizXRuntimeException();
+            throw new FizXRuntimeException("Timeline not recording");
+        }
+        
+        if (!Actors.Contains(actor))
+        {
+            throw new FizXRuntimeException("Actor is not part of this timeline");
         }
 
         if (!PastStates.TryPeek(out var lastPastState) || lastPastState.Frame.Index != frame.Index)

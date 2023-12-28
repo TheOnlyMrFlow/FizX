@@ -87,8 +87,8 @@ public class OpenTkRenderingEngine : IRenderingEngine
     {
         _consoleRenderingEngine.RenderWorld(world);
 
-        var actor1 = world.Actors.ElementAt(1); 
-        _window.Title = world.Actors.ElementAt(1).Position.X.ToString();
+        //var actor1 = world.Actors.ElementAt(1); 
+        //_window.Title = world.Actors.ElementAt(1).Position.X.ToString();
 
         _renderer.Clear();
         

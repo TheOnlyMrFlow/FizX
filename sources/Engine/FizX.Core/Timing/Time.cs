@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FizX.Core.Actors;
 
 namespace FizX.Core.Timing;
 
@@ -19,9 +20,9 @@ public enum TimeLineIndex
 
 public static class Time
 {
-    private static readonly TimeLine[] _timeLines = Enumerable.Repeat(() => new TimeLine(), 10).Select(x => x()).ToArray();
+    private static readonly TimeLine[] TimeLines = Enumerable.Range((int)TimeLineIndex.TimeLine0, (int)TimeLineIndex.TimeLine9 + 1).Select(i => new TimeLine((TimeLineIndex)i)).ToArray();
 
-    public static TimeLine GetTimeLine(TimeLineIndex index) => _timeLines[(int)index];
+    public static TimeLine GetTimeLine(TimeLineIndex index) => TimeLines[(int)index];
 
     public static IEnumerable<TimeLine> GetAllTimeLines()
     {
@@ -29,5 +30,12 @@ public static class Time
         {
             yield return GetTimeLine(i);
         }
+    }
+
+    public static void MoveActorTo(Actor actor, TimeLineIndex timeLineIndex)
+    {
+        GetTimeLine(actor.TimeLineIndex).Actors.Remove(actor);
+        GetTimeLine(timeLineIndex).Actors.Add(actor);
+        actor.TimeLineIndex = timeLineIndex;
     }
 }

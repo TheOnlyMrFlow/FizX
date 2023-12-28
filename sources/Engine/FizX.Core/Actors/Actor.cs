@@ -17,7 +17,9 @@ public class Actor
     
     public readonly int Id = NextRandomId();
 
-    public TimeLineIndex TimeLineIndex { get; private set; } = TimeLineIndex.TimeLine0;
+    public TimeLineIndex TimeLineIndex { get; internal set; } = TimeLineIndex.TimeLine0;
+
+    public TimeLine TimeLine => Time.GetTimeLine(TimeLineIndex);
 
     public Transform Transform { get; private set; } = new();
 
@@ -52,14 +54,37 @@ public class Actor
         foreach (var component in _components) 
             component.Tick(frame);
     }
-
-    internal void SetTimeLineIndex(TimeLineIndex timeLineIndex)
+    
+    public void RewindTick()
     {
-        TimeLineIndex = timeLineIndex;
+        foreach (var component in _components) 
+            component.RewindTick();
+    }
+
+    public void OnStartRewinding()
+    {
+        foreach (var component in _components) 
+            component.OnStartRewinding();
+    }
+
+    public void OnStopRewinding()
+    {
+        foreach (var component in _components) 
+            component.OnStopRewinding();
+    }
+    
+    internal void MoveToTimeline(TimeLineIndex timeLineIndex)
+    {
+        Time.MoveActorTo(this, timeLineIndex);
     }
 
     public override string ToString()
     {
         return $"[Actor:{Id}] [Transform:{Transform}] [Components: {string.Join(", ", Components.Select(c => c.ToString()))}]";
+    }
+
+    public override int GetHashCode()
+    {
+        return Id;
     }
 }

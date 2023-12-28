@@ -19,7 +19,7 @@ public class Actor2Component : ActorComponent
         
         if (Actor!.Transform.Position.X > 50)
         {
-            timeLine.StartRewinding();
+            timeLine.StartRewinding(frame);
         }
         
         Actor!.SetPosition(Actor.Position + (frame.DeltaTimeMs / 1000f) * 10f * Vector2.UnitX);

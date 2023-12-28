@@ -1,6 +1,7 @@
 ﻿using FizX.Core;
 using FizX.Core.Actors;
 using FizX.Core.Geometry.Shapes;
+using FizX.Core.Input;
 using FizX.Core.Physics.Collisions.ColliderComponents;
 using FizX.Core.Timing;
 using FizX.Core.Worlds;
@@ -30,7 +31,7 @@ world.AddActor(actor1, TimeLineIndex.TimeLine1);
 var actor2 = new Actor();
 actor2.AttachComponent(new BoxColliderComponent(new RectangleShape(30, 20)));
 actor2.AttachComponent(new Actor2Component());
-world.AddActor(actor2, TimeLineIndex.TimeLine0);
+//world.AddActor(actor2, TimeLineIndex.TimeLine0);
 
 var wl = new WorldLoader();
 wl.SetWorld(world);
@@ -41,10 +42,25 @@ var openTkGameHost = new OpenTkGameHost();
 
 var gameBoundaries = new GameBoundaries
 {
-    RenderingEngine = openTkGameHost.RenderingEngine,
-    WorldLoader = wl,
-    PhysicsEngine = new PhysicsEngine(),
-    EventBus = new EventBus()
+    RenderingEngineFactory = () => openTkGameHost.RenderingEngine,
+    WorldLoaderFactory = () => wl,
+    PhysicsEngineFactory = () => new PhysicsEngine(),
+    EventBusFactory = () => new EventBus(),
+    InputManagerFactory = () =>
+    {
+        var inputManager = new InputManager();
+        inputManager.MapInputVector("Move", [
+            new InputVectorComponent(KeyboardInputKey.W, InputAxis.Y, 1f),
+            new InputVectorComponent(KeyboardInputKey.S, InputAxis.Y, -1f),
+            new InputVectorComponent(KeyboardInputKey.D, InputAxis.X, 1f),
+            new InputVectorComponent(KeyboardInputKey.A, InputAxis.X, -1f)
+        ]);
+        
+        inputManager.MapInputVector("Rewind", KeyboardInputKey.Space, InputAxis.Y);
+
+        return inputManager;
+    },
+    LoggerFactory = () => null!
 };
 
 openTkGameHost.HostGame(new Game(gameBoundaries), cancellationTokenSource.Token);

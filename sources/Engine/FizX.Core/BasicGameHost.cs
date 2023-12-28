@@ -55,6 +55,8 @@ public class BasicGameHost : IGameHost
         var nextTickStartsNotBefore = 0f;
         var lasTickStartedAt = 0f;
         ulong frameIndex = 0;
+
+        game.BeforeStart();
         while (!cancellationToken.IsCancellationRequested)
         {
             while (_stopwatch.ElapsedMilliseconds < nextRenderStartsNotBefore)
