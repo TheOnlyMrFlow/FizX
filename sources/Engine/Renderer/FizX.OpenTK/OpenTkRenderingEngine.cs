@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Numerics;
 using FizX.Core.Graphics;
+using FizX.Core.Timing;
 using FizX.Core.Worlds;
 using FizX.Renderer;
 using ImGuiNET;
@@ -42,12 +43,13 @@ public class OpenTkRenderingEngine : IRenderingEngine
     private Shader _shader;
 
     private Renderer _renderer = new Renderer();
+
+    private Dictionary<int, Texture> _sprites = new ();
     
     public OpenTkRenderingEngine(GameWindow window)
     {
         _window = window;
         _imgUicontroller = new ImGuiController(window.ClientSize.X, window.ClientSize.Y);
-
     }
 
     public void Load()
@@ -100,11 +102,23 @@ public class OpenTkRenderingEngine : IRenderingEngine
         
         foreach (var actor in world.Actors)
         {
-            var transform = actor.Transform;
-            var model = Matrix4.CreateTranslation(transform.Position.X, transform.Position.Y, 0);
-            var mvp = model * view * proj;
-            _shader.SetUniformMatrix4("u_MVP", mvp);
-            _renderer.Draw(ref _vertexArray, ref _indexBuffer, ref _shader);
+            var spriteRenderers = actor.GetComponents<SpriteRendererComponent>();
+            foreach (var spriteRendererComponent in spriteRenderers)
+            {
+                if (!_sprites.TryGetValue(spriteRendererComponent.Id, out var texture))
+                {
+                    texture = new Texture(spriteRendererComponent.TextureFilePath);
+                    _sprites.Add(spriteRendererComponent.Id, texture);
+                }
+                texture.Use(0);
+                _shader.SetUniformInt("u_Texture", 0);
+                var transform = actor.Transform;
+                var model = Matrix4.CreateTranslation(transform.Position.X, transform.Position.Y, 0);
+                var mvp = model * view * proj;
+                _shader.SetUniformMatrix4("u_MVP", mvp);
+                _renderer.Draw(ref _vertexArray, ref _indexBuffer, ref _shader);
+                
+            }
         }
         
         // _vertices[0] = actor1.Position.X / 10000;
@@ -121,11 +135,16 @@ public class OpenTkRenderingEngine : IRenderingEngine
         _imgUicontroller.Update(_window, (float)0.16f);
 
         ImGui.Text("Hello world");
-        ImGui.Text("Hello world");
-        bool toto = true;
-        ImGui.Checkbox("Toto", ref toto);
+        foreach (var timeline in Time.GetAllTimeLines().Take(2))
+        {
+            ImGui.Text($"Timeline {timeline.Index}");
+            var isRecording = timeline.IsRecording;
+            var isRewinding = timeline.IsRewinding;
+            ImGui.Checkbox($"Recording", ref isRecording);
+            ImGui.Checkbox($"Rewinding", ref isRewinding);
+        }
         _imgUicontroller.Render();
-
+        
         ImGuiController.CheckGLError("End of frame");
         
         _window.SwapBuffers();

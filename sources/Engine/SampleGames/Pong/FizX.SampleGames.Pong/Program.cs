@@ -1,6 +1,7 @@
 ﻿using FizX.Core;
 using FizX.Core.Actors;
 using FizX.Core.Geometry.Shapes;
+using FizX.Core.Graphics;
 using FizX.Core.Input;
 using FizX.Core.Physics.Collisions.ColliderComponents;
 using FizX.Core.Timing;
@@ -26,11 +27,19 @@ Console.CancelKeyPress += (sender, eventArgs) => {
 var world = new World();
 var actor1 = new Actor();
 actor1.AttachComponent(new Actor1Component());
+actor1.AttachComponent(new SpriteRendererComponent()
+{
+    TextureFilePath = "Resources/cat.png"
+});
 world.AddActor(actor1, TimeLineIndex.TimeLine1);
 
 var actor2 = new Actor();
 actor2.AttachComponent(new BoxColliderComponent(new RectangleShape(30, 20)));
 actor2.AttachComponent(new Actor2Component());
+actor2.AttachComponent(new SpriteRendererComponent()
+{
+    TextureFilePath = "Resources/dog.png"
+});
 //world.AddActor(actor2, TimeLineIndex.TimeLine0);
 
 var wl = new WorldLoader();

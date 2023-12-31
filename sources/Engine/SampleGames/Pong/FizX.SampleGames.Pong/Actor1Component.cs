@@ -21,7 +21,7 @@ public class Actor1Component : ActorComponent
         //     timeLine.StartRewinding();
         // }
 
-        if (Game.Instance.InputManager.GetInputVector("Rewind") != Vector2.Zero)
+        if (Game.InputManager.GetInputVector("Rewind") != Vector2.Zero)
         {
             TimeLine.StartRewinding(frame);
         }
@@ -32,7 +32,7 @@ public class Actor1Component : ActorComponent
         // }
         
         
-        Actor!.SetPosition(Actor.Position + (frame.DeltaTimeMs / 1000f) * 50f * Game.InputManager.GetInputVector("Move"));
+        Actor!.SetPosition(Actor.Position + (frame.DeltaTimeMs / 1000f) * 100f * Game.InputManager.GetInputVector("Move"));
         
         
         //Thread.Sleep(500);
@@ -40,7 +40,12 @@ public class Actor1Component : ActorComponent
 
     public override void RewindTick()
     {
-        TimeLine.SetTimeScale(Math.Min(10f, TimeLine.TimeScale * 1.01f));
+        if (Game.InputManager.GetInputVector("Rewind") == Vector2.Zero)
+        {
+            TimeLine.StopRewinding();
+        }
+        
+        TimeLine.SetTimeScale(MathX.Lerp(1f, 2f, TimeLine.GetRewindProgress()));
     }
 
     public override void OnStartRewinding()

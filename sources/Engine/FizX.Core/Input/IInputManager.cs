@@ -40,18 +40,17 @@ public class InputManager : IInputManager
         return _inputVectors.TryGetValue(name, out var vec) ? vec.GetValue(_inputState) : throw new FizXRuntimeException("Input name does not exist.");
     }
     
-    public void MapInputVector(string name, IEnumerable<InputVectorComponent> components)
+    public void MapInputVector(string name, IEnumerable<InputVectorComponent> components, bool normalize = true)
     {
         if (!_inputVectors.TryGetValue(name, out var vector))
         {
-            vector = new InputVectorLazy();
+            vector = new InputVectorLazy(normalize);
             _inputVectors.Add(name, vector);
         }
         
         foreach (var component in components)
         {
             vector.AddComponent(component);
-            
         }
     }
     
@@ -96,10 +95,12 @@ public enum InputAxis
     Y
 }
 
-public class InputVectorLazy
+public class InputVectorLazy(bool normalize)
 {
+    public bool Normalize { get; } = normalize;
+
     private readonly List<InputVectorComponent> _components = new();
-    
+
     public void AddComponent(KeyboardInputKey key, InputAxis axis, float magnitude)
     {
         _components.Add(new InputVectorComponent(key, axis, magnitude));
@@ -112,12 +113,14 @@ public class InputVectorLazy
     
     public Vector2 GetValue(InputState inputState)
     {
-        return _components
+        var value = _components
             .Where(c => inputState.IsPressed(c.Key))
             .Aggregate(
                 Vector2.Zero, 
                 (current, component) => current + component.Magnitude * (component.Axis == InputAxis.X ? Vector2.UnitX : Vector2.UnitY)
                 );
+        
+        return value != Vector2.Zero && Normalize ? Vector2.Normalize(value) : value;
     }
 }
 

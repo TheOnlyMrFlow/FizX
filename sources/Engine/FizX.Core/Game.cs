@@ -4,6 +4,7 @@ using FizX.Core.Input;
 using FizX.Core.Logging;
 using FizX.Core.Physics;
 using FizX.Core.Graphics;
+using FizX.Core.Serialization;
 using FizX.Core.Worlds;
 
 namespace FizX.Core;
@@ -19,7 +20,7 @@ public class Game
     private readonly IPhysicsEngine _physicsEngine;
     private readonly IRenderingEngine _renderingEngine;
     private readonly IWorldLoader _worldLoader;
-
+    
     public World World { get; private set; }
 
     public int ElapsedFramesSinceStart { get; private set; } = 0;
